@@ -1,0 +1,15 @@
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\EmailServiceApplication.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\EmailServiceApplication.AssemblyInfoInputs.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\EmailServiceApplication.AssemblyInfo.cs
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\EmailServiceApplication.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\bin\Debug\net9.0\EmailServiceApplication.deps.json
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\bin\Debug\net9.0\EmailServiceApplication.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\bin\Debug\net9.0\EmailServiceApplication.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\bin\Debug\net9.0\EmailServiceInfrastructure.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\bin\Debug\net9.0\EmailServiceInfrastructure.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\EmailServiceApplication.csproj.AssemblyReference.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\EmailSer.D32CCF02.Up2Date
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\EmailServiceApplication.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\refint\EmailServiceApplication.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\EmailServiceApplication.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApplication\obj\Debug\net9.0\ref\EmailServiceApplication.dll

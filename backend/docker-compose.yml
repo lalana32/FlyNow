@@ -1,0 +1,24 @@
+services:
+  authservice:
+    build:
+      context: ./authservice/
+    ports:
+      - '5001:5001'
+    environment:
+      - ASPNETCORE_URLS=http://+:5001
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=userdb;Username=postgres;Password=lalana32
+    depends_on:
+      - postgres
+    command:
+      ['sh', '-c', 'wait-for-it postgres:5432 -- dotnet AuthServiceApi.dll']
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: userdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: lalana32
+    ports:
+      - '5432:5432'

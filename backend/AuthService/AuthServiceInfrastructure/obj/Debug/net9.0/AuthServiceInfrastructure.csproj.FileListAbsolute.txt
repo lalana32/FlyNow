@@ -1,0 +1,14 @@
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\bin\Debug\net9.0\AuthServiceInfrastructure.deps.json
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\bin\Debug\net9.0\AuthServiceInfrastructure.runtimeconfig.json
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\bin\Debug\net9.0\AuthServiceInfrastructure.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\bin\Debug\net9.0\AuthServiceInfrastructure.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.csproj.AssemblyReference.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.AssemblyInfoInputs.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.AssemblyInfo.cs
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\refint\AuthServiceInfrastructure.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.genruntimeconfig.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\ref\AuthServiceInfrastructure.dll
