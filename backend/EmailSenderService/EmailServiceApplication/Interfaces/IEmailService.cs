@@ -8,6 +8,6 @@ namespace EmailServiceApplication.Interfaces
 {
     public interface IEmailService
     {
-        Task SendVerificationEmailAsync(string toEmail);
+        Task SendVerificationEmailAsync(string toEmail, string confirmationLink);
     }
 }

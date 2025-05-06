@@ -6,9 +6,15 @@ namespace AuthServiceInfrastructure.Messaging
 {
     public class RabbitMqService : IRabbitMqService
     {
-        public async Task SendMessageAsync(string queueName, string email, string confirmationToken)
+        public async Task SendMessageAsync(string queueName, string email, string userId, string confirmationToken)
         {
-            var factory = new ConnectionFactory { HostName = "localhost" };
+            var factory = new ConnectionFactory
+            {
+                HostName = "rabbitmq",
+                UserName = "guest",
+                Password = "guest",
+                VirtualHost = "/"
+            };
 
             try
             {
@@ -24,8 +30,9 @@ namespace AuthServiceInfrastructure.Messaging
                 var messageObject = new
                 {
                     Email = email,
-                    ConfirmationLink = $"http://localhost:5001/confirm?token={confirmationToken}"
+                    ConfirmationLink = $"http://localhost:5001/confirm?userId={userId}&token={System.Net.WebUtility.UrlEncode(confirmationToken)}"
                 };
+
 
                 var messageJson = JsonConvert.SerializeObject(messageObject); 
 

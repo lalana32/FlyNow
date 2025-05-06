@@ -10,7 +10,7 @@ namespace AuthServiceInfrastructure.Data
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
-            var configPath = Path.Combine(Directory.GetCurrentDirectory(), "../AuthServiceApi"); // put do API sloja
+            var configPath = Path.Combine(Directory.GetCurrentDirectory(), "../AuthServiceApi"); 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(configPath)
                 .AddJsonFile("appsettings.json")

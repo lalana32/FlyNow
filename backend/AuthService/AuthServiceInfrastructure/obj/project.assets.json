@@ -3842,11 +3842,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\AuthService\\AuthServiceInfrastructure\\AuthServiceInfrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\authservice\\AuthServiceInfrastructure\\AuthServiceInfrastructure.csproj",
       "projectName": "AuthServiceInfrastructure",
-      "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\AuthService\\AuthServiceInfrastructure\\AuthServiceInfrastructure.csproj",
+      "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\authservice\\AuthServiceInfrastructure\\AuthServiceInfrastructure.csproj",
       "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\AuthService\\AuthServiceInfrastructure\\obj\\",
+      "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\authservice\\AuthServiceInfrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",

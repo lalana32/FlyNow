@@ -21,13 +21,12 @@ namespace EmailServiceApi.Controllers
         }
 
         [HttpPost("send-verification-email")]
-        public async Task<IActionResult> SendVerificationEmail(string email)
+        public async Task<IActionResult> SendVerificationEmail(string email, string confirmationLink)
         {
-            var confirmationLink = "jantar";
-
+            
             try
             {
-                await _emailService.SendVerificationEmailAsync(email);
+                await _emailService.SendVerificationEmailAsync(email, confirmationLink);
                 return Ok("Verification email sent.");
             }
             catch (Exception ex)

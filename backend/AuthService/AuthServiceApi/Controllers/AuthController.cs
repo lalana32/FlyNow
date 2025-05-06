@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AuthServiceApplication.DTOs;
 using AuthServiceApplication.Interfaces;
-
+using AuthServiceApplication.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -70,6 +71,45 @@ namespace AuthServiceApi.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
+        [HttpGet("confirm")]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string token)
+        {
+            var decodedToken = WebUtility.UrlDecode(token); 
+            var response = await _authService.ConfirmEmailAsync(userId, decodedToken);
+
+            if (response.Success)
+                return Ok(response.Data);
+            else
+                return BadRequest(response.Message);
+        }
+
+
+        [HttpGet("users")]
+        public async Task<ActionResult<ServiceResponse<List<AuthResponse>>>> GetAllUsers()
+        {
+            var response = await _authService.GetAllUsersAsync();
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var result = await _authService.DeleteUserByIdAsync(id);
+
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
+
     }
     
 }

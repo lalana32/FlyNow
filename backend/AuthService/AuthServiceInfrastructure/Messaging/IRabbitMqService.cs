@@ -7,6 +7,6 @@ namespace AuthServiceInfrastructure.Messaging
 {
     public interface IRabbitMqService
     {
-        Task SendMessageAsync(string queueName, string email, string confirmationToken);
+        Task SendMessageAsync(string queueName, string email,string userId, string confirmationToken);
     }
 }

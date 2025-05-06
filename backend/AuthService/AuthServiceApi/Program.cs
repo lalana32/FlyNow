@@ -11,22 +11,20 @@ using AuthServiceInfrastructure.Messaging;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// -------------------- KONFIGURACIJA SERVISA --------------------
 
-// Swagger (OpenAPI)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// DbContext - koristi konekciju iz appsettings.json
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Identity
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-// JWT autentifikacija
+
 var jwtKey = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!);
 
 builder.Services.AddAuthentication(options =>
@@ -49,7 +47,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// Tvoje custom servise
+
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IRabbitMqService, RabbitMqService>();
@@ -58,7 +56,6 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// -------------------- AUTOMATSKE MIGRACIJE I SEEDING --------------------
 
 using (var scope = app.Services.CreateScope())
 {
@@ -74,11 +71,10 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Greška prilikom migracije/seed-a: {ex.Message}");
+        Console.WriteLine($"Error while migration/seeding: {ex.Message}");
     }
 }
 
-// -------------------- MIDDLEWARE --------------------
 
 if (app.Environment.IsDevelopment())
 {
@@ -86,7 +82,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-        c.RoutePrefix = string.Empty; // Swagger UI na root-u
+        c.RoutePrefix = string.Empty; 
     });
 }
 
@@ -96,5 +92,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/health", () => Results.Ok("Healthy"));
 
 app.Run();

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+
 
 namespace EmailServiceInfrastructure.Messaging
 {
@@ -16,7 +18,7 @@ namespace EmailServiceInfrastructure.Messaging
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _rabbitMqService.RecieveMessageAsync("email_queue"); // ili koristi QueueNames.EmailQueue
+            await _rabbitMqService.RecieveMessageAsync("email_queue"); 
         }
     }
 }

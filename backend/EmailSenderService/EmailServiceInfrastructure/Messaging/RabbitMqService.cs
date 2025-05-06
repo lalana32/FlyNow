@@ -1,34 +1,45 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Text;
+using Newtonsoft.Json;
 using EmailServiceInfrastructure.Messaging.Models;
+using EmailServiceApplication.Interfaces;
+using Microsoft.Extensions.Configuration;
+
 
 namespace EmailServiceInfrastructure.Messaging
 {
     public class RabbitMqService
     {
+        private readonly IEmailService _emailService;
+        private IModel _channel; 
+        private IConnection _connection;
+        private readonly IConfiguration _configuration;
 
-        private readonly EmailService _emailService;  // Referenca na EmailService
 
-    // Konstruktor sa DI injekcijom
-        public RabbitMqService(EmailService emailService)
+        public RabbitMqService(IEmailService emailService, IConfiguration configuration)
         {
             _emailService = emailService;
+            _configuration = configuration;
         }
-
 
         public async Task RecieveMessageAsync(string queueName)
         {
-            var factory = new ConnectionFactory { HostName = "localhost" };
+            var factory = new ConnectionFactory() { 
+                HostName = _configuration["RabbitMQ:Host"] ?? "localhost",
+                Port = int.TryParse(_configuration["RabbitMQ:Port"], out var port) ? port : 5672,
+                UserName = _configuration["RabbitMQ:Username"] ?? "guest",
+                Password = _configuration["RabbitMQ:Password"] ?? "guest",
+                VirtualHost = _configuration["RabbitMQ:VirtualHost"] ?? "/"
+             };
 
-            using var connection = await factory.CreateConnectionAsync();
-            using var channel = await connection.CreateChannelAsync();
+    
+            _connection = factory.CreateConnection();
+            _channel = _connection.CreateModel();  
 
-            await channel.QueueDeclareAsync(queue: queueName,
+            _channel.QueueDeclare(queue: queueName,
                                             durable: true, 
                                             exclusive: false, 
                                             autoDelete: false, 
@@ -36,39 +47,35 @@ namespace EmailServiceInfrastructure.Messaging
 
             Console.WriteLine(" [*] Waiting for messages.");
 
-            // Kreiramo potrošača koji će osluškivati nove poruke
-            var consumer = new AsyncEventingBasicConsumer(channel);
+            var consumer = new EventingBasicConsumer(_channel);  
 
-            // Izmenjeno: koristićemo event za primanje poruke i obraditi je
-            consumer.Received += async (model, ea) => 
+        
+            consumer.Received += async (model, ea) =>
             {
+                if (ea.Body.Length == 0) 
+                {
+                    Console.WriteLine("Poruka je null.");
+                    return;
+                }
+
                 var body = ea.Body.ToArray();
-                var messageJson = Encoding.UTF8.GetString(body); // Dobijamo poruku kao JSON string
+                var messageJson = Encoding.UTF8.GetString(body);
 
                 try
                 {
-                    // Deseralizujemo JSON poruku u objekat
-                    var message = JsonConvert.DeserializeObject<Message>(messageJson); // Dodato: deseralizacija poruke
-
-                    // Pošaljemo email sa potvrdom
-                    await _emailService.SendVerificationEmailAsync(message.Email, message.ConfirmationLink); // Dodato: slanje email-a
-
-                    // Potvrda da je poruka uspešno obrađena
-                    await channel.BasicAckAsync(ea.DeliveryTag, multiple: false); // Potvrđujemo da je poruka obrađena
+                    var message = JsonConvert.DeserializeObject<Message>(messageJson);
+                    await _emailService.SendVerificationEmailAsync(message.Email, message.ConfirmationLink);
+                    _channel.BasicAck(ea.DeliveryTag, false);  
                     Console.WriteLine($" [x] Sent email to {message.Email} with confirmation link.");
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error processing message: {ex.Message}");
-
-                    // Ako dođe do greške, obavestit ćemo RabbitMQ da je poruka neuspešno obrađena
-                    await channel.BasicNackAsync(ea.DeliveryTag, multiple: false, requeue: true);
+                    _channel.BasicNack(ea.DeliveryTag, false, true);  
                 }
             };
 
-            // Oslanjamo se na već postojeći kod za konzumiranje poruka
-            await channel.BasicConsumeAsync(queueName, autoAck: false, consumer: consumer);
+            _channel.BasicConsume(queueName, false, consumer);  
         }
-
     }
 }

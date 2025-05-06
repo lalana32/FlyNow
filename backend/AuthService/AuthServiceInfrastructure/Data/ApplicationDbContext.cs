@@ -15,17 +15,14 @@ namespace AuthServiceInfrastructure.Data
         : base(options)
         {
             
-            // Podesite vezu sa bazom, ukoliko treba da uradite dodatna podešavanja
         }
-
-        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+       
     }
     
 }

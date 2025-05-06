@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApi\\EmailServiceApi.csproj": {}
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\emailserviceapi\\EmailServiceApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApi\\EmailServiceApi.csproj": {
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\emailserviceapi\\EmailServiceApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApi\\EmailServiceApi.csproj",
+        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\emailserviceapi\\EmailServiceApi.csproj",
         "projectName": "EmailServiceApi",
-        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApi\\EmailServiceApi.csproj",
+        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\emailserviceapi\\EmailServiceApi.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApi\\obj\\",
+        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\emailserviceapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,11 +28,11 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApplication\\EmailServiceApplication.csproj": {
-                "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApplication\\EmailServiceApplication.csproj"
+              "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceApplication\\EmailServiceApplication.csproj": {
+                "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceApplication\\EmailServiceApplication.csproj"
               },
-              "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj": {
-                "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj"
+              "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj": {
+                "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj"
               }
             }
           }
@@ -85,14 +85,14 @@
         }
       }
     },
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApplication\\EmailServiceApplication.csproj": {
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceApplication\\EmailServiceApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApplication\\EmailServiceApplication.csproj",
+        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceApplication\\EmailServiceApplication.csproj",
         "projectName": "EmailServiceApplication",
-        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApplication\\EmailServiceApplication.csproj",
+        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceApplication\\EmailServiceApplication.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceApplication\\obj\\",
+        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceApplication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -108,11 +108,7 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {
-              "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj": {
-                "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -150,14 +146,14 @@
         }
       }
     },
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj": {
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj",
         "projectName": "EmailServiceInfrastructure",
-        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj",
+        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceInfrastructure\\EmailServiceInfrastructure.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\EmailSenderService\\EmailServiceInfrastructure\\obj\\",
+        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceInfrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -173,7 +169,11 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceApplication\\EmailServiceApplication.csproj": {
+                "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\emailsenderservice\\EmailServiceApplication\\EmailServiceApplication.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -195,6 +195,22 @@
             "MailKit": {
               "target": "Package",
               "version": "[4.12.0, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "RabbitMQ.Client": {
+              "target": "Package",
+              "version": "[6.8.0, )"
             }
           },
           "imports": [
