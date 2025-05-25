@@ -13,3 +13,4 @@ C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceApplication\obj\
 C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceApplication\obj\Debug\net9.0\refint\AuthServiceApplication.dll
 C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceApplication\obj\Debug\net9.0\AuthServiceApplication.pdb
 C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceApplication\obj\Debug\net9.0\ref\AuthServiceApplication.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\authservice\AuthServiceApplication\obj\Debug\net9.0\AuthServiceApplication.sourcelink.json

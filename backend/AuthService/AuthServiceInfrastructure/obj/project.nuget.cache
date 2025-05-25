@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qe26xj/vRPc=",
+  "dgSpecHash": "ZCHv/D8kUPM=",
   "success": true,
   "projectFilePath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\AuthService\\AuthServiceInfrastructure\\AuthServiceInfrastructure.csproj",
   "expectedPackageFiles": [
@@ -69,5 +69,12 @@
     "C:\\Users\\Korisnik\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512",
     "C:\\Users\\Korisnik\\.nuget\\packages\\system.threading.ratelimiting\\8.0.0\\system.threading.ratelimiting.8.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: No such host is known. (api.nuget.org:443)"
+    }
+  ]
 }

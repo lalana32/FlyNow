@@ -67,3 +67,4 @@ C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceApi\obj\Debug\ne
 C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceApi\obj\Debug\net9.0\ref\AuthServiceApi.dll
 C:\Users\Korisnik\Desktop\FlyNow\backend\authservice\authserviceapi\bin\Debug\net9.0\Newtonsoft.Json.dll
 C:\Users\Korisnik\Desktop\FlyNow\backend\authservice\authserviceapi\bin\Debug\net9.0\RabbitMQ.Client.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\authservice\authserviceapi\obj\Debug\net9.0\AuthServiceApi.sourcelink.json

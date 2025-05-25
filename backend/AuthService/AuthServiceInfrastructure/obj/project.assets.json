@@ -3842,11 +3842,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\authservice\\AuthServiceInfrastructure\\AuthServiceInfrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\AuthService\\AuthServiceInfrastructure\\AuthServiceInfrastructure.csproj",
       "projectName": "AuthServiceInfrastructure",
-      "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\authservice\\AuthServiceInfrastructure\\AuthServiceInfrastructure.csproj",
+      "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\AuthService\\AuthServiceInfrastructure\\AuthServiceInfrastructure.csproj",
       "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\authservice\\AuthServiceInfrastructure\\obj\\",
+      "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\AuthService\\AuthServiceInfrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3938,8 +3938,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: No such host is known. (api.nuget.org:443)"
+    }
+  ]
 }

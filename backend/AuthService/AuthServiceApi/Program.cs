@@ -54,6 +54,18 @@ builder.Services.AddScoped<IRabbitMqService, RabbitMqService>();
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000") // React dev server
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // ako koristiš cookies
+        });
+});
+
 var app = builder.Build();
 
 
@@ -92,6 +104,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("AllowFrontend");
 
 app.MapGet("/health", () => Results.Ok("Healthy"));
 

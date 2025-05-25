@@ -12,3 +12,4 @@ C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\o
 C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.pdb
 C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.genruntimeconfig.cache
 C:\Users\Korisnik\Desktop\FlyNow\backend\AuthService\AuthServiceInfrastructure\obj\Debug\net9.0\ref\AuthServiceInfrastructure.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\authservice\AuthServiceInfrastructure\obj\Debug\net9.0\AuthServiceInfrastructure.sourcelink.json

@@ -1,4 +1,16 @@
 services:
+  yarp:
+    build: ./YarpProxy
+    ports:
+      - '5000:80' # localhost:5000 → port 80 u kontejneru
+    environment:
+      ASPNETCORE_URLS: http://+:80
+      ASPNETCORE_ENVIRONMENT: Production
+    depends_on:
+      - authservice
+    networks:
+      - backend
+
   auth.database:
     image: postgres:17-alpine
     container_name: auth.database
@@ -40,6 +52,8 @@ services:
   authservice:
     build:
       context: ./authservice/
+    networks:
+      - backend
     ports:
       - '5001:5001'
     environment:
@@ -62,7 +76,7 @@ services:
       [
         'sh',
         '-c',
-        'wait-for-it.sh postgres:5432 --timeout=60 -- dotnet AuthServiceApi.dll',
+        'wait-for-it.sh auth.database:5432 --timeout=60 -- dotnet AuthServiceApi.dll',
       ]
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:5001/health']
@@ -73,6 +87,8 @@ services:
   emailservice:
     build:
       context: ./emailsenderservice/
+    networks:
+      - backend
     ports:
       - '5002:5002'
     environment:
@@ -101,3 +117,7 @@ services:
 volumes:
   postgres_data:
   rabbitmq_data:
+
+networks:
+  backend:
+    driver: bridge
