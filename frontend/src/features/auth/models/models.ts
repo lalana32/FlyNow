@@ -1,3 +1,8 @@
+export interface LoginDto {
+  username: string;
+  password: string;
+}
+
 export interface LoginResponse {
   id: string;
   username: string;
@@ -6,9 +11,16 @@ export interface LoginResponse {
   role: string;
 }
 
-export interface LoginDto {
+export interface RegisterDto {
+  email: string;
   username: string;
   password: string;
+}
+
+export interface RegisterResponse<T> {
+  data: T | null;
+  success: boolean;
+  message: string;
 }
 
 export interface User {

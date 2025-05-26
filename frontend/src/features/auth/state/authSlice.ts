@@ -1,21 +1,43 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { login } from '../api/authApi';
+import { login, register } from '../api/authApi';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import type { LoginDto, LoginResponse, User } from '../models/models';
+import type {
+  LoginDto,
+  LoginResponse,
+  RegisterDto,
+  User,
+} from '../models/models';
 
 interface AuthState {
   user: User | null;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
+
+  login: {
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
+  };
+
+  registration: {
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    message: string | null;
+    error: string | null;
+  };
 }
 
 const userFromStorage = localStorage.getItem('user');
 
 const initialState: AuthState = {
   user: userFromStorage ? JSON.parse(userFromStorage) : null,
-  status: 'idle',
-  error: null,
+  login: {
+    status: 'idle',
+    error: null,
+  },
+
+  registration: {
+    status: 'idle',
+    message: null,
+    error: null,
+  },
 };
 
 export const loginUser = createAsyncThunk<
@@ -37,34 +59,73 @@ export const loginUser = createAsyncThunk<
   }
 });
 
+export const registerUser = createAsyncThunk<
+  string,
+  RegisterDto,
+  {
+    rejectValue: string;
+  }
+>('auth/registerUser', async (credentials, thunkAPI) => {
+  try {
+    const response = await register(credentials);
+    return response.data.message;
+  } catch (err) {
+    const error = err as AxiosError<{ message: string }>;
+
+    return thunkAPI.rejectWithValue(
+      error.response?.data.message || 'Registration failed'
+    );
+  }
+});
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     logout(state) {
       state.user = null;
-      state.status = 'idle';
-      state.error = null;
+      state.login.status = 'idle';
+      state.login.error = null;
       localStorage.removeItem('user');
     },
   },
   extraReducers: (builder) => {
     builder
+
+      //LOGIN
       .addCase(loginUser.pending, (state) => {
-        state.status = 'loading';
-        state.error = null;
+        state.login.status = 'loading';
+        state.login.error = null;
       })
       .addCase(
         loginUser.fulfilled,
         (state, action: PayloadAction<LoginResponse>) => {
-          state.status = 'succeeded';
+          state.login.status = 'succeeded';
           state.user = action.payload;
           localStorage.setItem('user', JSON.stringify(action.payload));
         }
       )
       .addCase(loginUser.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload as string;
+        state.login.status = 'failed';
+        state.login.error = action.payload as string;
+      })
+
+      //REGISTER
+      .addCase(registerUser.pending, (state) => {
+        state.registration.status = 'loading';
+        state.registration.error = null;
+        state.registration.message = null;
+      })
+      .addCase(
+        registerUser.fulfilled,
+        (state, action: PayloadAction<string>) => {
+          state.registration.status = 'succeeded';
+          state.registration.message = action.payload;
+        }
+      )
+      .addCase(registerUser.rejected, (state, action) => {
+        state.registration.status = 'failed';
+        state.registration.error = action.payload as string;
       });
   },
 });

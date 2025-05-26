@@ -2,28 +2,17 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import SubmitButton from '../components/SubmitButton';
 import FormField from '../components/FormField';
-import { useState } from 'react';
 import { loginUser } from '../state/authSlice';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { Controller, useForm } from 'react-hook-form';
+import type { LoginDto } from '../models/models';
 
 const SignInForm = () => {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
   const dispatch = useAppDispatch();
+  const { control, handleSubmit } = useForm<LoginDto>();
 
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleLoginSubmit = async (data: LoginDto) => {
     try {
-      const data = { username, password };
-
       const response = await dispatch(loginUser(data));
       console.log(response);
     } catch (err) {
@@ -52,18 +41,32 @@ const SignInForm = () => {
           flexDirection: 'column',
         }}
         component='form'
-        onSubmit={handleLoginSubmit}
+        onSubmit={handleSubmit(handleLoginSubmit)}
       >
-        <FormField
-          label='username'
-          type='text'
-          onChange={handleUsernameChange}
-        ></FormField>
-        <FormField
-          label='password'
-          type='password'
-          onChange={handlePasswordChange}
-        ></FormField>
+        <Controller
+          name='username'
+          control={control}
+          defaultValue=''
+          render={({ field }) => (
+            <FormField
+              label='Username'
+              type='text'
+              {...field} // value, onChange, onBlur, name dolaze ovde
+            />
+          )}
+        />
+        <Controller
+          name='password'
+          control={control}
+          defaultValue=''
+          render={({ field }) => (
+            <FormField
+              label='Password'
+              type='password'
+              {...field} // value, onChange, onBlur, name dolaze ovde
+            />
+          )}
+        />
         <SubmitButton variant='contained' text={'Login'} type='submit' />
       </Paper>
     </Box>
