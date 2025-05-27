@@ -151,7 +151,7 @@ namespace AuthServiceApplication.Services
         }
 
 
-        public async Task<ServiceResponse<string>> RegisterAsync(string firstName, string lastName, string email, string username, string password)
+        public async Task<ServiceResponse<string>> RegisterAsync(string email, string username, string password)
         {
             var response = new ServiceResponse<string>();
 
@@ -171,8 +171,7 @@ namespace AuthServiceApplication.Services
 
             var user = new ApplicationUser
             {
-                FirstName = firstName,
-                LastName = lastName,
+                
                 Email = email,
                 UserName = username
             };

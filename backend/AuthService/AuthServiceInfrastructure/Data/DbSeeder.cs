@@ -25,8 +25,7 @@ namespace AuthServiceInfrastructure.Data
           
             var admin = new ApplicationUser
             {
-                FirstName = "admin",
-                LastName = "admin",
+              
                 UserName = "admin",
                 Email = "admin@test.com",
 
@@ -42,8 +41,7 @@ namespace AuthServiceInfrastructure.Data
       
             var user = new ApplicationUser
             {
-                FirstName = "korisnik",
-                LastName = "korisnik",
+               
                 UserName = "korisnik",
                 Email = "korisnik@test.com",
             };

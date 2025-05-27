@@ -52,14 +52,14 @@ namespace AuthServiceApi.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
             if (registerDto == null || string.IsNullOrEmpty(registerDto.UserName) || string.IsNullOrEmpty(registerDto.Password) ||
-                string.IsNullOrEmpty(registerDto.Email) || string.IsNullOrEmpty(registerDto.FirstName) || string.IsNullOrEmpty(registerDto.LastName))
+                string.IsNullOrEmpty(registerDto.Email))
             {
                 return BadRequest("All fields are required.");
             }
 
             try
             {
-                var token = await _authService.RegisterAsync(registerDto.FirstName, registerDto.LastName, registerDto.Email, registerDto.UserName, registerDto.Password);
+                var token = await _authService.RegisterAsync(registerDto.Email, registerDto.UserName, registerDto.Password);
                 return Ok(new { Token = token });
             }
             catch (InvalidOperationException ex)
