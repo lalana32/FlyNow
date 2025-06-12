@@ -30,7 +30,7 @@ namespace AuthServiceInfrastructure.Messaging
                 var messageObject = new
                 {
                     Email = email,
-                    ConfirmationLink = $"http://localhost:5001/confirm?userId={userId}&token={System.Net.WebUtility.UrlEncode(confirmationToken)}"
+                    ConfirmationLink = $"http://localhost:5001/api/Auth/confirm?userId={userId}&token={System.Web.HttpUtility.UrlEncode(confirmationToken)}",
                 };
 
 

@@ -1,0 +1,16 @@
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\FlightServiceApplication.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\FlightServiceApplication.AssemblyInfoInputs.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\FlightServiceApplication.AssemblyInfo.cs
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\FlightServiceApplication.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\FlightServiceApplication.sourcelink.json
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\FlightServiceApplication.csproj.AssemblyReference.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\bin\Debug\net9.0\FlightServiceApplication.deps.json
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\bin\Debug\net9.0\FlightServiceApplication.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\bin\Debug\net9.0\FlightServiceApplication.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\FlightServiceApplication.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\refint\FlightServiceApplication.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\FlightServiceApplication.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\ref\FlightServiceApplication.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\bin\Debug\net9.0\FlightServiceInfrastructure.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\bin\Debug\net9.0\FlightServiceInfrastructure.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApplication\obj\Debug\net9.0\FlightSe.40CF1425.Up2Date

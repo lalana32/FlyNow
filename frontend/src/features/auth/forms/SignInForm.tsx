@@ -3,9 +3,9 @@ import Paper from '@mui/material/Paper';
 import SubmitButton from '../components/SubmitButton';
 import FormField from '../components/FormField';
 import { loginUser } from '../state/authSlice';
-import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { Controller, useForm } from 'react-hook-form';
 import type { LoginDto } from '../models/models';
+import { useAppDispatch } from '../../../hooks/hooks';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();

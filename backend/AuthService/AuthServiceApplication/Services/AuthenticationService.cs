@@ -39,9 +39,9 @@ namespace AuthServiceApplication.Services
             }
 
     
-            var decodedToken = System.Web.HttpUtility.UrlDecode(token);
+      
 
-            var result = await _userManager.ConfirmEmailAsync(user, decodedToken);
+            var result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)
             {
                 response.Data = "Email confirmed successfully!";
@@ -195,7 +195,7 @@ namespace AuthServiceApplication.Services
                 queueName: "email_queue",
                 email: user.Email,
                 userId: userId,
-                confirmationToken: encodedToken
+                confirmationToken: confirmationToken
             );
            
             response.Data = $"Registration successful. Please check your email to confirm your account. UserId: {user.Id}";

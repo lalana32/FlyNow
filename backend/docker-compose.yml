@@ -35,6 +35,8 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     hostname: rabbitmq
+    networks:
+      - backend
     restart: unless-stopped
     ports:
       - '5672:5672'

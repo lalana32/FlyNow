@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using AuthServiceApplication.DTOs;
 using AuthServiceApplication.Interfaces;
 using AuthServiceApplication.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 
 
 
@@ -34,8 +36,8 @@ namespace AuthServiceApi.Controllers
 
             try
             {
-                var token = await _authService.LoginAsync(loginDto.UserName, loginDto.Password);
-                return Ok(new { Token = token });
+                var response = await _authService.LoginAsync(loginDto.UserName, loginDto.Password);
+                return Ok(response);
             }
             catch (UnauthorizedAccessException)
             {
@@ -59,8 +61,8 @@ namespace AuthServiceApi.Controllers
 
             try
             {
-                var token = await _authService.RegisterAsync(registerDto.Email, registerDto.UserName, registerDto.Password);
-                return Ok(new { Token = token });
+                var response = await _authService.RegisterAsync(registerDto.Email, registerDto.UserName, registerDto.Password);
+                return Ok(response);
             }
             catch (InvalidOperationException ex)
             {
@@ -75,11 +77,14 @@ namespace AuthServiceApi.Controllers
         [HttpGet("confirm")]
         public async Task<IActionResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string token)
         {
-            var decodedToken = WebUtility.UrlDecode(token); 
-            var response = await _authService.ConfirmEmailAsync(userId, decodedToken);
+              
+            var response = await _authService.ConfirmEmailAsync(userId, token);
 
-            if (response.Success)
-                return Ok(response.Data);
+           if (response.Success)
+            {
+                // Preusmeri na frontend stranicu za uspešnu potvrdu
+                return Redirect("http://localhost:5173/confirm-email");
+            }
             else
                 return BadRequest(response.Message);
         }
@@ -109,7 +114,5 @@ namespace AuthServiceApi.Controllers
             return Ok(result);
         }
 
-
-    }
-    
+    } 
 }

@@ -6,5 +6,5 @@ export const login = (data: LoginDto) => {
 };
 
 export const register = (data: RegisterDto) => {
-  return api.post('/auth-api/api/Auth/login', data);
+  return api.post('/auth-api/api/Auth/register', data);
 };

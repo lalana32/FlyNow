@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\FlightService",
+    "\\FlightService\\FlightServiceApplication",
+    "\\FlightService\\FlightServiceApplication\\Interfaces",
+    "\\FlightService\\FlightServiceApplication\\Services"
+  ],
+  "SelectedNode": "\\FlightService\\FlightServiceApplication\\Interfaces\\IFlightService.cs",
+  "PreviewInSolutionExplorer": false
+}
