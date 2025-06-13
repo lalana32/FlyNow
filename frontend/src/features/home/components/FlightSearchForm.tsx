@@ -95,7 +95,7 @@ const FlightSearchForm = ({ onSearch }: Props) => {
   };
 
   return (
-    <Paper elevation={3} sx={{ PaperStyles }}>
+    <Paper elevation={3} sx={{ ...PaperStyles }}>
       <Typography variant='h5' component='h1' gutterBottom sx={{ mb: 3 }}>
         Flight Search
       </Typography>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceApplication\\FlightServiceApplication.csproj": {}
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApplication\\FlightServiceApplication.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceApplication\\FlightServiceApplication.csproj": {
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApplication\\FlightServiceApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceApplication\\FlightServiceApplication.csproj",
+        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApplication\\FlightServiceApplication.csproj",
         "projectName": "FlightServiceApplication",
-        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceApplication\\FlightServiceApplication.csproj",
+        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApplication\\FlightServiceApplication.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceApplication\\obj\\",
+        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApplication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj": {
-                "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj"
+              "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj": {
+                "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj"
               }
             }
           }
@@ -79,14 +79,14 @@
         }
       }
     },
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj": {
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj",
         "projectName": "FlightServiceInfrastructure",
-        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj",
+        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceInfrastructure\\FlightServiceInfrastructure.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceInfrastructure\\obj\\",
+        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceInfrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",

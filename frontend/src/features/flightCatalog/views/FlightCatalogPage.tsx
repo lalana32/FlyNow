@@ -1,109 +1,174 @@
 import { useSearchParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import { searchFlights } from '../../home/api/homeApi';
-import type { Flight, FlightSearchParams } from '../../home/models/models';
+import type { FlightSearchResponse } from '../models/models';
+import { Typography, Box, Paper } from '@mui/material';
+import FlightCard from '../components/FlightCard';
+import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../../../shared/components/LoadingSpinner';
+import { MdOutlineFlightTakeoff, MdOutlineFlightLand } from 'react-icons/md';
 
 const FlightCatalog = () => {
   const [searchParams] = useSearchParams();
 
+  const flightSearchParams = {
+    origin: searchParams.get('origin') || '',
+    destination: searchParams.get('destination') || '',
+    departureDate: searchParams.get('departureDate') || '',
+    returnDate: searchParams.get('returnDate') || '',
+    adults: parseInt(searchParams.get('adults') || '1'),
+  };
+
   const {
     data: flights,
     isLoading,
+    isError,
     error,
-  } = useQuery({
-    queryKey: ['flights', searchParams.toString()],
-    queryFn: () => {
-      const searchParamsObj = Object.fromEntries(
-        searchParams.entries()
-      ) as Partial<FlightSearchParams>;
+  } = useQuery<FlightSearchResponse>({
+    queryKey: ['flights', flightSearchParams],
+    queryFn: () => searchFlights(flightSearchParams).then((res) => res.data),
+    enabled:
+      !!flightSearchParams.origin &&
+      !!flightSearchParams.destination &&
+      !!flightSearchParams.departureDate,
 
-      if (
-        !searchParamsObj.origin ||
-        !searchParamsObj.destination ||
-        !searchParamsObj.departureDate
-      ) {
-        throw new Error('Missing required search parameters');
-      }
-
-      const params: FlightSearchParams = {
-        origin: searchParamsObj.origin,
-        destination: searchParamsObj.destination,
-        departureDate: searchParamsObj.departureDate,
-        returnDate: searchParamsObj.returnDate || '',
-        adults: searchParamsObj.adults ? searchParamsObj.adults : 1,
-      };
-
-      return searchFlights(params).then((res) => {
-        // res.data.departureFlights je niz sa backend strukturom
-        return res.data.departureFlights.map((bf: any) => {
-          const itinerary = bf.itineraries[0];
-          const segment = itinerary.segments[0];
-
-          return {
-            id: bf.id,
-            origin: segment.departure.iataCode,
-            destination: segment.arrival.iataCode,
-            departureDate: segment.departure.at,
-            returnDate: undefined, // nema povratni let u ovom primeru
-            price: bf.price,
-            airline: segment.carrierCode,
-            duration: itinerary.duration,
-            stops: segment.numberOfStops,
-          } as Flight;
-        });
-      });
-    },
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
-    return <div className='loading'>Loading flights...</div>;
+    return <LoadingSpinner />;
   }
 
-  if (error) {
-    return (
-      <div className='error'>
-        Error: {error instanceof Error ? error.message : 'Unknown error'}
-      </div>
-    );
+  if (isError) {
+    return <div>Error loading flights: {error.message}</div>;
   }
 
-  if (!flights || flights.length === 0) {
-    return (
-      <div className='no-flights'>
-        No flights found for your search criteria
-      </div>
-    );
+  if (!flights) {
+    return <div>No flight data available</div>;
   }
 
+  const { departureFlights = [], returnFlights = [] } = flights;
   return (
-    <div className='flight-catalog'>
-      <h2>Available Flights</h2>
-      <div className='flight-list'>
-        {flights.map((flight: Flight) => (
-          <div key={flight.id} className='flight-card'>
-            <div className='flight-route'>
-              <span className='flight-origin'>{flight.origin}</span>
-              <span className='flight-arrow'>→</span>
-              <span className='flight-destination'>{flight.destination}</span>
-            </div>
-            <div className='flight-dates'>
-              <span>
-                Departure: {new Date(flight.departureDate).toLocaleDateString()}
-              </span>
-              {flight.returnDate && (
-                <span>
-                  Return: {new Date(flight.returnDate).toLocaleDateString()}
-                </span>
-              )}
-            </div>
-            <div className='flight-price'>
-              Price: €{parseFloat(flight.price.total).toFixed(2)}
-            </div>
-            <div className='flight-airline'>Airline: {flight.airline}</div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <Box
+      sx={{
+        p: 3,
+        background: 'linear-gradient(to bottom, #f5f7fa 0%, #e4e8eb 100%)',
+        minHeight: '100vh',
+      }}
+    >
+      <Paper
+        elevation={0}
+        sx={{
+          p: 4,
+          mb: 4,
+          borderRadius: 4,
+          boxShadow: '0 8px 32px rgba(0,0,0,0.05)',
+          background: 'rgba(255,255,255,0.9)',
+          backdropFilter: 'blur(8px)',
+        }}
+      >
+        <Typography
+          variant='h3'
+          sx={{
+            fontWeight: 700,
+            color: 'primary.main',
+            mb: 4,
+            position: 'relative',
+          }}
+        >
+          Available Flights
+        </Typography>
+
+        {departureFlights.length > 0 && (
+          <Box sx={{ mb: 6 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+              <MdOutlineFlightTakeoff
+                style={{
+                  fontSize: '2rem',
+                  color: '#1976d2', // MUI primary color
+                  marginRight: '8px',
+                }}
+              />
+              <Typography
+                variant='h5'
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
+                Departure Flights
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 3,
+              }}
+            >
+              {departureFlights.map((flight) => (
+                <Box key={flight.id} sx={{ width: '100%' }}>
+                  <FlightCard {...flight} />
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
+
+        {returnFlights.length > 0 && (
+          <Box sx={{ mb: 6 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+              <MdOutlineFlightLand
+                style={{
+                  fontSize: '2rem',
+                  color: '#1976d2', // MUI primary color
+                  marginRight: '8px',
+                }}
+              />
+              <Typography
+                variant='h5'
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
+                Return Flights
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 3,
+              }}
+            >
+              {returnFlights.map((flight) => (
+                <Box key={flight.id} sx={{ width: '100%' }}>
+                  <FlightCard {...flight} />
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
+
+        {departureFlights.length === 0 && returnFlights.length === 0 && (
+          <Box
+            sx={{
+              textAlign: 'center',
+              py: 10,
+              border: '1px dashed',
+              borderColor: 'divider',
+              borderRadius: 2,
+            }}
+          >
+            <Typography variant='h5' sx={{ mb: 2 }}>
+              No flights found
+            </Typography>
+            <Typography variant='body1' color='text.secondary'>
+              Try adjusting your search criteria
+            </Typography>
+          </Box>
+        )}
+      </Paper>
+    </Box>
   );
 };
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "x66CbyDH+i8=",
+  "dgSpecHash": "Bxd0n8vNnG0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\flightservice\\FlightServiceApplication\\FlightServiceApplication.csproj",
+  "projectFilePath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApplication\\FlightServiceApplication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Korisnik\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\Korisnik\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.5\\microsoft.extensions.configuration.9.0.5.nupkg.sha512",

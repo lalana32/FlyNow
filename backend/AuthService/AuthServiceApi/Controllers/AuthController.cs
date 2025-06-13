@@ -82,7 +82,6 @@ namespace AuthServiceApi.Controllers
 
            if (response.Success)
             {
-                // Preusmeri na frontend stranicu za uspešnu potvrdu
                 return Redirect("http://localhost:5173/confirm-email");
             }
             else
