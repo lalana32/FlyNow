@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FlightServiceApplication.Interfaces;
 using FlightServiceApplication.Entities.FlightOffer;
+using FlightServiceApplication.DTOs;
 
 
 namespace FlightServiceApi.Controllers
@@ -28,7 +29,7 @@ namespace FlightServiceApi.Controllers
         {
             var (departureFlights, returnFlights) = await _flightService.GetFlightsAsync(origin, destination, departureDate, adults, returnDate);
 
-            var response = new FlightSearchResponse
+            var response = new FlightSearchResultDto
             {
                 DepartureFlights = departureFlights,
                 ReturnFlights = returnFlights
