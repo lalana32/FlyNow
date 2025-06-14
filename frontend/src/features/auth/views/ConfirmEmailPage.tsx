@@ -1,43 +1,67 @@
-import { Box, Paper, Typography, Button } from '@mui/material';
+import { Box, Paper, Typography, Button, Stack } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { FaCheckCircle } from 'react-icons/fa';
+import {
+  buttonStyles,
+  mainBoxStyles,
+  PaperStyles,
+} from '../styles/confirmEmailStyles';
 
 const ConfirmEmailPage = () => {
   return (
     <Box
       sx={{
-        minHeight: '80vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        p: 2,
-        backgroundColor: '#f5f5f5',
+        ...mainBoxStyles,
       }}
     >
       <Paper
-        elevation={3}
+        elevation={6}
         sx={{
-          p: 4,
-          maxWidth: 400,
-          textAlign: 'center',
-          borderRadius: 2,
+          ...PaperStyles,
         }}
       >
-        <Typography variant='h5' gutterBottom>
-          Your email has been confirmed!
-        </Typography>
-        <Typography variant='body1' sx={{ mb: 3 }}>
-          Thank you for confirming your email. You can now log in to your
-          account.
-        </Typography>
+        <Stack spacing={3} alignItems='center'>
+          <Box
+            sx={{
+              color: '#4caf50',
+              fontSize: '4rem',
+              lineHeight: 1,
+            }}
+          >
+            <FaCheckCircle />
+          </Box>
 
-        <Button
-          variant='contained'
-          color='primary'
-          component={RouterLink}
-          to='/'
-        >
-          Go to Login
-        </Button>
+          <Typography
+            variant='h4'
+            component='h1'
+            sx={{ fontWeight: 700, color: '#2d3748' }}
+          >
+            Email Verified!
+          </Typography>
+
+          <Typography
+            variant='body1'
+            sx={{ color: '#4a5568', fontSize: '1.1rem' }}
+          >
+            Your email address has been successfully verified. You now have full
+            access to your account.
+          </Typography>
+
+          <Box sx={{ pt: 2, width: '100%' }}>
+            <Button
+              fullWidth
+              variant='contained'
+              size='large'
+              component={RouterLink}
+              to='/login'
+              sx={{
+                ...buttonStyles,
+              }}
+            >
+              Continue to login
+            </Button>
+          </Box>
+        </Stack>
       </Paper>
     </Box>
   );

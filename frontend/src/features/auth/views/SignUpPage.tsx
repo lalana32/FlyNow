@@ -1,5 +1,5 @@
 import { Box, Container, Paper, Typography } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import FormField from '../components/FormField';
 import SubmitButton from '../components/SubmitButton';
 import { useAppDispatch } from '../../../hooks/hooks';
@@ -8,9 +8,19 @@ import { registerUser } from '../state/authSlice';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { ToastNotification } from '../components/ToastNotification';
+import {
+  BoxStyles,
+  ContainerStyles,
+  PaperStyles,
+} from '../styles/signUpStyles';
 
 const SignUpPage = () => {
-  const { control, handleSubmit } = useForm<RegisterDto>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<RegisterDto>();
   const dispatch = useAppDispatch();
   const [toastOpen, setToastOpen] = useState(false);
 
@@ -19,6 +29,7 @@ const SignUpPage = () => {
       const response = await dispatch(registerUser(data));
       console.log(response);
       if (response.meta.requestStatus === 'fulfilled') {
+        reset();
         setToastOpen(true);
       }
     } catch (error) {
@@ -26,33 +37,10 @@ const SignUpPage = () => {
     }
   };
   return (
-    <Container
-      sx={{
-        display: 'flex',
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <Paper
-        elevation={3}
-        sx={{
-          width: '60%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          p: 5,
-          borderRadius: 4,
-        }}
-      >
+    <Container sx={{ ...ContainerStyles }}>
+      <Paper elevation={3} sx={{ ...PaperStyles }}>
         <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-          }}
+          sx={{ ...BoxStyles }}
           component='form'
           onSubmit={handleSubmit(handleRegisterSubmit)}
         >
@@ -62,43 +50,34 @@ const SignUpPage = () => {
           <Typography variant='body1' color='text.secondary' mb={4}>
             Join us and start journey today
           </Typography>
-          <Controller
+          <FormField
             name='username'
             control={control}
-            defaultValue=''
-            render={({ field }) => (
-              <FormField
-                label='Username'
-                type='text'
-                {...field} // value, onChange, onBlur, name dolaze ovde
-              />
-            )}
+            label='Username'
+            type='text'
+            rules={{ required: 'Username is required' }}
+            error={!!errors.username}
+            helperText={errors.username?.message}
           />
-          <Controller
+          <FormField
             name='email'
             control={control}
-            defaultValue=''
-            render={({ field }) => (
-              <FormField
-                label='Email'
-                type='text'
-                {...field} // value, onChange, onBlur, name dolaze ovde
-              />
-            )}
+            label='Email'
+            type='email'
+            rules={{ required: 'email is required' }}
+            error={!!errors.email}
+            helperText={errors.email?.message}
           />
-          <Controller
+          <FormField
             name='password'
             control={control}
-            defaultValue=''
-            render={({ field }) => (
-              <FormField
-                label='Password'
-                type='password'
-                {...field} // value, onChange, onBlur, name dolaze ovde
-              />
-            )}
+            label='Password'
+            type='password'
+            rules={{ required: 'Password is required' }}
+            error={!!errors.password}
+            helperText={errors.password?.message}
           />
-          <SubmitButton variant='contained' text={'Sign Up'} type='submit' />
+          <SubmitButton text='Sign Up' />
           <Typography variant='body2' sx={{ mt: 3 }}>
             Already have an account? <NavLink to='/'>Sign In</NavLink>
           </Typography>

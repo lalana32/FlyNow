@@ -1,8 +1,8 @@
 import { Box, Container, Typography } from '@mui/material';
 import type { FlightSearchParams } from '../models/models';
-import FlightSearchForm from '../components/FlightSearchForm';
+import FlightSearchForm from '../components/searchForm/FlightSearchForm';
 import { useNavigate } from 'react-router-dom';
-import PopularDestinationCard from '../components/PopularDestinationCard';
+import PopularDestinationCard from '../components/popularDestinations/PopularDestinationCard';
 
 const HomePage = () => {
   const navigate = useNavigate();

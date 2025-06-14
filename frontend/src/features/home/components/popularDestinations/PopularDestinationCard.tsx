@@ -9,7 +9,7 @@ import {
   Button,
 } from '@mui/material';
 import { FaStar, FaPlane, FaBookOpen } from 'react-icons/fa';
-import TravelGuide from '../../flightCatalog/components/TravelGuide'; // Importujte vaš TravelGuide komponent
+import TravelGuide from './TravelGuide'; // Importujte vaš TravelGuide komponent
 
 interface PopularDestinationCardProps {
   imageUrl: string;

@@ -17,6 +17,8 @@ const SubmitButton = ({ text, ...props }: SubmitButtonProps) => {
         marginTop: (theme) => theme.spacing(2),
       }}
       {...props}
+      type='submit'
+      variant='contained'
     >
       {text}
     </Button>

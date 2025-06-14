@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\flightserviceapi\\FlightServiceApi.csproj": {}
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApi\\FlightServiceApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\flightserviceapi\\FlightServiceApi.csproj": {
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApi\\FlightServiceApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\flightserviceapi\\FlightServiceApi.csproj",
+        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApi\\FlightServiceApi.csproj",
         "projectName": "FlightServiceApi",
-        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\flightserviceapi\\FlightServiceApi.csproj",
+        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApi\\FlightServiceApi.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\flightserviceapi\\obj\\",
+        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\FlightService\\FlightServiceApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -6,12 +6,12 @@ import type {
   AmadeusLocationResponse,
   FlightSearchParams,
   LocationOption,
-} from '../models/models';
+} from '../../models/models';
 import SearchField from './SearchField';
 import AutocompleteSearchField from './AutoCompleteSearchField';
 import SearchButton from './SearchButton';
-import { fetchSearchSuggestions } from '../api/homeApi';
-import { PaperStyles } from '../styles/flightSearchFormStyles';
+import { fetchSearchSuggestions } from '../../api/homeApi';
+import { PaperStyles } from '../../styles/flightSearchFormStyles';
 
 type Props = {
   onSearch?: (data: FlightSearchParams) => void;

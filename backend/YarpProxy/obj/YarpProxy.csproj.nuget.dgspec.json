@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\yarpproxy\\YarpProxy.csproj": {}
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\YarpProxy\\YarpProxy.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\yarpproxy\\YarpProxy.csproj": {
+    "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\YarpProxy\\YarpProxy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\yarpproxy\\YarpProxy.csproj",
+        "projectUniqueName": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\YarpProxy\\YarpProxy.csproj",
         "projectName": "YarpProxy",
-        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\yarpproxy\\YarpProxy.csproj",
+        "projectPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\YarpProxy\\YarpProxy.csproj",
         "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\yarpproxy\\obj\\",
+        "outputPath": "C:\\Users\\Korisnik\\Desktop\\FlyNow\\backend\\YarpProxy\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",

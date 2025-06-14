@@ -1,4 +1,5 @@
-import { FaSubway, FaHotel, FaUtensils, FaTaxi } from 'react-icons/fa';
+import { FaSubway, FaHotel, FaUtensils, FaTaxi, FaBus } from 'react-icons/fa';
+import { FaPersonWalking, FaTrainTram } from 'react-icons/fa6';
 import { MdOutlineDirectionsBike } from 'react-icons/md';
 
 export interface TravelGuideData {
@@ -23,10 +24,10 @@ export interface TravelGuideData {
 export const travelGuides: Record<string, TravelGuideData> = {
   paris: {
     tips: [
-      'Najbolje vrijeme za posjetu: Proljeće',
-      'Službeni jezik: Francuski',
-      'Valuta: Euro (€)',
-      'Viza: Nije potrebna za EU državljane',
+      'Best time to visit: Spring',
+      'Official language: French',
+      'Currency: Euro (€)',
+      'Visa: Not required for EU citizens',
     ],
     attractions: [
       {
@@ -43,7 +44,7 @@ export const travelGuides: Record<string, TravelGuideData> = {
       },
       {
         name: 'Notre-Dame Cathedral',
-        type: 'Religious',
+        type: 'Religious Site',
         image:
           'https://images.unsplash.com/photo-1598875793464-d8cc825c32f7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fE5vdHJlJTIwRGFtZSUyMGNhdGVkcmFsfGVufDB8fDB8fHww',
       },
@@ -56,43 +57,46 @@ export const travelGuides: Record<string, TravelGuideData> = {
     transportation: [
       {
         type: 'Metro',
-        tip: 'Kupite dnevnu kartu za neograničeno putovanje',
+        tip: 'Buy a day pass for unlimited travel',
         icon: <FaSubway />,
       },
       {
         type: 'Bike',
-        tip: "Vélib' je gradski sistem dijeljenja bicikala",
+        tip: "Vélib' is the city's bike-sharing system",
         icon: <MdOutlineDirectionsBike />,
       },
       {
         type: 'Taxi',
-        tip: 'Službeni taxiovi su beko-sivi',
+        tip: 'Official taxis are white-gray',
         icon: <FaTaxi />,
       },
     ],
   },
   tokyo: {
     tips: [
-      'Najbolje vrijeme za posjetu: Proljeće ili Jesen',
-      'Službeni jezik: Japanski',
-      'Valuta: Yen (¥)',
-      'Viza: Potrebna za većinu državljana izvan Japana',
+      'Best time to visit: Spring or Autumn',
+      'Official language: Japanese',
+      'Currency: Yen (¥)',
+      'Visa: Required for most non-Japanese citizens',
     ],
     attractions: [
       {
         name: 'Senso-ji Temple',
         type: 'Religious Site',
-        image: 'https://source.unsplash.com/random/200x200/?sensoji+temple',
+        image:
+          'https://images.unsplash.com/photo-1713917457116-f0b5d968a238?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U2Vuc28lMjBqaSUyMFRlbXBsZXxlbnwwfHwwfHx8MA%3D%3D',
       },
       {
         name: 'Shibuya Crossing',
         type: 'Landmark',
-        image: 'https://source.unsplash.com/random/200x200/?shibuya+crossing',
+        image:
+          'https://plus.unsplash.com/premium_photo-1661902398022-762e88ff3f82?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8U2hpYnV5YSUyMENyb3NzaW5nfGVufDB8fDB8fHww',
       },
       {
         name: 'Tokyo Skytree',
         type: 'Observation Deck',
-        image: 'https://source.unsplash.com/random/200x200/?tokyo+skytree',
+        image:
+          'https://plus.unsplash.com/premium_photo-1722795151311-f4f38a3b2b61?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8VG9reW8lMjBTa3l0cmVlfGVufDB8MHwwfHx8MA%3D%3D',
       },
     ],
     restaurants: [
@@ -103,43 +107,46 @@ export const travelGuides: Record<string, TravelGuideData> = {
     transportation: [
       {
         type: 'Metro',
-        tip: 'Koristi Suica kartu za lakši pristup',
+        tip: 'Use a Suica card for easier access',
         icon: <FaSubway />,
       },
       {
         type: 'Taxi',
-        tip: 'Vrlo skupo, izbjegavati osim nužde',
-        icon: <FaUtensils />,
+        tip: 'Very expensive, avoid unless necessary',
+        icon: <FaTaxi />,
       },
       {
         type: 'Shinkansen',
-        tip: 'Brzi voz za putovanja izvan Tokija',
-        icon: <FaSubway />,
+        tip: 'High-speed train for travel outside Tokyo',
+        icon: <FaTrainTram />,
       },
     ],
   },
   rome: {
     tips: [
-      'Najbolje vrijeme za posjetu: Proljeće ili Jesen',
-      'Službeni jezik: Italijanski',
-      'Valuta: Euro (€)',
-      'Viza: Nije potrebna za EU državljane',
+      'Best time to visit: Spring or Autumn',
+      'Official language: Italian',
+      'Currency: Euro (€)',
+      'Visa: Not required for EU citizens',
     ],
     attractions: [
       {
         name: 'Colosseum',
         type: 'Historical',
-        image: 'https://source.unsplash.com/random/200x200/?colosseum',
+        image:
+          'https://plus.unsplash.com/premium_photo-1661938399624-3495425e5027?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y29sb3NldW0lMjByb21lfGVufDB8fDB8fHww',
       },
       {
         name: 'Vatican Museums',
         type: 'Museum',
-        image: 'https://source.unsplash.com/random/200x200/?vatican',
+        image:
+          'https://plus.unsplash.com/premium_photo-1661964123160-8d049fa07f0c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y2l1ZGFkJTIwZGVsJTIwdmF0aWNhbm98ZW58MHx8MHx8fDA%3D',
       },
       {
         name: 'Trevi Fountain',
         type: 'Landmark',
-        image: 'https://source.unsplash.com/random/200x200/?trevi+fountain',
+        image:
+          'https://images.unsplash.com/photo-1651212989581-dd548973b55e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHRyZXZpJTIwZm91bnRhaW58ZW58MHx8MHx8fDA%3D',
       },
     ],
     restaurants: [
@@ -150,18 +157,18 @@ export const travelGuides: Record<string, TravelGuideData> = {
     transportation: [
       {
         type: 'Metro',
-        tip: 'Ograničena mreža, ali korisna za glavne atrakcije',
+        tip: 'Limited network but useful for major attractions',
         icon: <FaSubway />,
       },
       {
         type: 'Bus',
-        tip: 'Opsežna mreža koja pokriva cijeli grad',
-        icon: <FaSubway />,
+        tip: 'Extensive network covering the whole city',
+        icon: <FaBus />,
       },
       {
         type: 'Walking',
-        tip: 'Centar grada je najbolje istraživati pješice',
-        icon: <FaUtensils />,
+        tip: 'City center is best explored on foot',
+        icon: <FaPersonWalking />,
       },
     ],
   },

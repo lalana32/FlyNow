@@ -1,59 +1,57 @@
 import { Container, Box, Typography, Paper } from '@mui/material';
-import Fotka from '../../../assets/avion.png';
 import FormField from '../components/FormField';
 import SubmitButton from '../components/SubmitButton';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../hooks/hooks';
 import type { LoginDto } from '../models/models';
 import { loginUser } from '../state/authSlice';
 import { NavLink, useNavigate } from 'react-router-dom';
+import {
+  BoxStyles,
+  ContainerStyles,
+  ImageContainerStyles,
+  PaperStyles,
+} from '../styles/signInStyles';
 
 const SignInPage = () => {
   const dispatch = useAppDispatch();
-  const { control, handleSubmit } = useForm<LoginDto>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginDto>();
   const navigate = useNavigate();
 
   const handleLoginSubmit = async (data: LoginDto) => {
     try {
       const response = await dispatch(loginUser(data));
-      console.log(response);
-      navigate('/home');
+      if (response.meta.requestStatus === 'fulfilled') {
+        navigate('/home');
+      } else {
+        console.log('Login failed:', response.payload);
+      }
     } catch (err) {
-      console.log(err);
+      console.log('Unexpected error:', err);
     }
   };
+
   return (
     <Container
       maxWidth={false}
       sx={{
-        display: 'flex',
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-        p: 0,
+        ...ContainerStyles,
       }}
     >
       <Paper
         elevation={3}
         sx={{
-          display: 'flex',
-          minHeight: 500,
-          borderRadius: 4,
-          overflow: 'hidden',
-          width: '900px',
+          ...PaperStyles,
         }}
       >
-        {/* Leva strana: Forma */}
+        {/* Lieva strana: Forma */}
         <Box
           sx={{
-            flex: '1 1 50%',
-            px: 5,
-            py: 4,
-            boxSizing: 'border-box',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+            ...BoxStyles,
           }}
           component='form'
           onSubmit={handleSubmit(handleLoginSubmit)}
@@ -65,29 +63,23 @@ const SignInPage = () => {
             Please sign in to your account to continue
           </Typography>
 
-          <Controller
+          <FormField
             name='username'
             control={control}
-            defaultValue=''
-            render={({ field }) => (
-              <FormField
-                label='Username'
-                type='text'
-                {...field} // value, onChange, onBlur, name dolaze ovde
-              />
-            )}
+            label='Username'
+            type='text'
+            rules={{ required: 'Username is required' }}
+            error={!!errors.username}
+            helperText={errors.username?.message}
           />
-          <Controller
+          <FormField
             name='password'
             control={control}
-            defaultValue=''
-            render={({ field }) => (
-              <FormField
-                label='Password'
-                type='password'
-                {...field} // value, onChange, onBlur, name dolaze ovde
-              />
-            )}
+            label='Password'
+            type='password'
+            rules={{ required: 'Password is required' }}
+            error={!!errors.password}
+            helperText={errors.username?.message}
           />
 
           <SubmitButton text='Login' type='submit' />
@@ -100,12 +92,7 @@ const SignInPage = () => {
         {/* Desna strana: Slika */}
         <Box
           sx={{
-            flex: '1 1 50%',
-            boxSizing: 'border-box',
-            backgroundImage: `url(${Fotka})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            flexShrink: 0,
+            ...ImageContainerStyles,
           }}
         />
       </Paper>
