@@ -34,24 +34,21 @@ namespace AuthServiceApi.Controllers
                 return BadRequest("Username and password are required.");
             }
 
-            try
-            {
                 var response = await _authService.LoginAsync(loginDto.UserName, loginDto.Password);
-                return Ok(response);
-            }
-            catch (UnauthorizedAccessException)
+
+            if (!response.Success)
             {
-                return Unauthorized("Invalid username or password.");
+                return Unauthorized(response.Message);
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+
+            return Ok(response);
+        
+         
         }
 
         
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        public async Task<ActionResult<ServiceResponse<string>>> Register([FromBody] RegisterDto registerDto)
         {
             if (registerDto == null || string.IsNullOrEmpty(registerDto.UserName) || string.IsNullOrEmpty(registerDto.Password) ||
                 string.IsNullOrEmpty(registerDto.Email))
@@ -62,7 +59,7 @@ namespace AuthServiceApi.Controllers
             try
             {
                 var response = await _authService.RegisterAsync(registerDto.Email, registerDto.UserName, registerDto.Password);
-                return Ok(response);
+                return response;
             }
             catch (InvalidOperationException ex)
             {

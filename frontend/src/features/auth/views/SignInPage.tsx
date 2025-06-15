@@ -12,8 +12,10 @@ import {
   ImageContainerStyles,
   PaperStyles,
 } from '../styles/signInStyles';
+import { useState } from 'react';
 
 const SignInPage = () => {
+  const [serverError, setServerError] = useState<string>('');
   const dispatch = useAppDispatch();
   const {
     control,
@@ -24,14 +26,22 @@ const SignInPage = () => {
 
   const handleLoginSubmit = async (data: LoginDto) => {
     try {
+      setServerError('');
       const response = await dispatch(loginUser(data));
-      if (response.meta.requestStatus === 'fulfilled') {
-        navigate('/home');
-      } else {
-        console.log('Login failed:', response.payload);
+
+      if (loginUser.fulfilled.match(response)) {
+        // Sada pristupamo response.payload.data.token umesto response.payload.token
+        if (response.meta.requestStatus === 'fulfilled') {
+          navigate('/home');
+        } else {
+          setServerError('Login failed - please try again');
+        }
+      } else if (loginUser.rejected.match(response)) {
+        setServerError((response.payload as string) || 'Invalid credentials');
       }
     } catch (err) {
-      console.log('Unexpected error:', err);
+      setServerError('An unexpected error occurred');
+      console.error('Unexpected error:', err);
     }
   };
 
@@ -77,10 +87,17 @@ const SignInPage = () => {
             control={control}
             label='Password'
             type='password'
+            autoComplete='off'
             rules={{ required: 'Password is required' }}
             error={!!errors.password}
-            helperText={errors.username?.message}
+            helperText={errors.password?.message}
           />
+
+          {serverError && (
+            <Typography color='error' sx={{ mt: 1, mb: 2 }}>
+              {serverError}
+            </Typography>
+          )}
 
           <SubmitButton text='Login' type='submit' />
 

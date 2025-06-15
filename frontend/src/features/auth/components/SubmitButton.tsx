@@ -1,13 +1,19 @@
-import Button from '@mui/material/Button';
-import type { ButtonProps } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+import type { LoadingButtonProps } from '@mui/lab';
+import { CircularProgress } from '@mui/material';
 
-type SubmitButtonProps = ButtonProps & {
+type SubmitButtonProps = LoadingButtonProps & {
   text: string;
+  loading?: boolean;
 };
 
-const SubmitButton = ({ text, ...props }: SubmitButtonProps) => {
+const SubmitButton = ({
+  text,
+  loading = false,
+  ...props
+}: SubmitButtonProps) => {
   return (
-    <Button
+    <LoadingButton
       sx={{
         backgroundColor: 'black',
         color: 'white',
@@ -19,9 +25,16 @@ const SubmitButton = ({ text, ...props }: SubmitButtonProps) => {
       {...props}
       type='submit'
       variant='contained'
+      loading={loading} // 👈 Omogućava loading stanje
+      loadingIndicator={
+        <CircularProgress
+          size={24}
+          sx={{ color: 'white' }} // 👈 Spinner beli umesto defaultne boje
+        />
+      } // 👈 Opcionalno: prilagodite tekst
     >
       {text}
-    </Button>
+    </LoadingButton>
   );
 };
 
