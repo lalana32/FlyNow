@@ -68,8 +68,9 @@ Each service is independently deployable and communicates via REST and RabbitMQ.
 ```bash
 docker-compose up --build
 
+```
 ### Frontend:
-```bash
+
 cd frontend
 npm install
 npm run dev
