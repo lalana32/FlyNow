@@ -1,14 +1,18 @@
 import { Box, Button, DialogActions, Rating, Typography } from '@mui/material';
 
+interface GuideFooterProps {
+  rating: number | null;
+  setRating: (value: number | null) => void;
+  onClose: () => void;
+  onDownload: () => void;
+}
+
 const GuideFooter = ({
   rating,
   setRating,
   onClose,
-}: {
-  rating: number | null;
-  setRating: (value: number | null) => void;
-  onClose: () => void;
-}) => {
+  onDownload,
+}: GuideFooterProps) => {
   return (
     <DialogActions
       sx={{ p: 3, flexDirection: 'column', alignItems: 'stretch' }}
@@ -26,11 +30,10 @@ const GuideFooter = ({
         </Box>
       </Box>
 
-      {/* Dugmad jedno pored drugog */}
       <Box display='flex' justifyContent='center' gap={2}>
         <Button
           onClick={onClose}
-          variant='contained'
+          variant='outlined'
           size='large'
           sx={{
             borderRadius: 2,
@@ -40,10 +43,10 @@ const GuideFooter = ({
             fontSize: '1rem',
           }}
         >
-          Send me to email
+          Close
         </Button>
         <Button
-          onClick={onClose}
+          onClick={onDownload}
           variant='contained'
           size='large'
           sx={{
@@ -54,7 +57,7 @@ const GuideFooter = ({
             fontSize: '1rem',
           }}
         >
-          Download to device
+          Download PDF
         </Button>
       </Box>
     </DialogActions>
