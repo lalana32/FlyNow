@@ -29,6 +29,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers(); // ✅ Mapira rute za kontrolere
+app.MapControllers();
+
+app.MapGet("/health", () => Results.Ok("Healthy")); 
 
 app.Run();

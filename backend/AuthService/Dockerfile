@@ -1,25 +1,31 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /App
 
-COPY ./FlightServiceApi/FlightServiceApi.csproj ./FlightServiceApi/
-COPY ./FlightServiceApplication/FlightServiceApplication.csproj ./FlightServiceApplication/
-COPY ./FlightServiceDomain/FlightServiceDomain.csproj ./FlightServiceDomain/
-COPY ./FlightServiceInfrastructure/FlightServiceInfrastructure.csproj ./FlightServiceInfrastructure/
+# Kopiranje .csproj fajlova pojedinačno
+COPY ./AuthServiceApi/AuthServiceApi.csproj ./AuthServiceApi/
+COPY ./AuthServiceApplication/AuthServiceApplication.csproj ./AuthServiceApplication/
+COPY ./AuthServiceDomain/AuthServiceDomain.csproj ./AuthServiceDomain/
+COPY ./AuthServiceInfrastructure/AuthServiceInfrastructure.csproj ./AuthServiceInfrastructure/
 
-RUN dotnet restore ./FlightServiceApi/FlightServiceApi.csproj
+# Restore samo glavnog projekta (on povlači sve dependencies)
+RUN dotnet restore ./AuthServiceApi/AuthServiceApi.csproj
 
-COPY ./FlightServiceApi/ ./FlightServiceApi/
-COPY ./FlightServiceApplication/ ./FlightServiceApplication/
-COPY ./FlightServiceDomain/ ./FlightServiceDomain/
-COPY ./FlightServiceInfrastructure/ ./FlightServiceInfrastructure/
+# Kopiranje celog koda
+COPY ./AuthServiceApi/ ./AuthServiceApi/
+COPY ./AuthServiceApplication/ ./AuthServiceApplication/
+COPY ./AuthServiceDomain/ ./AuthServiceDomain/
+COPY ./AuthServiceInfrastructure/ ./AuthServiceInfrastructure/
 
-RUN dotnet publish ./FlightServiceApi/FlightServiceApi.csproj -c Release -o /App/out
+# Publish
+RUN dotnet publish ./AuthServiceApi/AuthServiceApi.csproj -c Release -o /App/out
 
+# Preuzimanje wait-for-it skripte
 WORKDIR /temp
 RUN apt-get update && apt-get install -y wget && \
     wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
     chmod +x wait-for-it.sh
 
+# Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /App
 
@@ -28,4 +34,5 @@ COPY --from=build /temp/wait-for-it.sh /wait-for-it.sh
 
 RUN chmod +x /wait-for-it.sh
 
-ENTRYPOINT ["/wait-for-it.sh", "postgres:5432", "--", "dotnet", "FlightServiceApi.dll"]
+# Pretpostavka: auth.database koristi port 5432
+ENTRYPOINT ["/wait-for-it.sh", "auth.database:5432", "--", "dotnet", "AuthServiceApi.dll"]
