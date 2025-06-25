@@ -1,0 +1,12 @@
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\bin\Debug\net9.0\BookingServiceDomain.deps.json
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\bin\Debug\net9.0\BookingServiceDomain.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\bin\Debug\net9.0\BookingServiceDomain.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\obj\Debug\net9.0\BookingServiceDomain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\obj\Debug\net9.0\BookingServiceDomain.AssemblyInfoInputs.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\obj\Debug\net9.0\BookingServiceDomain.AssemblyInfo.cs
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\obj\Debug\net9.0\BookingServiceDomain.csproj.CoreCompileInputs.cache
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\obj\Debug\net9.0\BookingServiceDomain.sourcelink.json
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\obj\Debug\net9.0\BookingServiceDomain.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\obj\Debug\net9.0\refint\BookingServiceDomain.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\obj\Debug\net9.0\BookingServiceDomain.pdb
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceDomain\obj\Debug\net9.0\ref\BookingServiceDomain.dll

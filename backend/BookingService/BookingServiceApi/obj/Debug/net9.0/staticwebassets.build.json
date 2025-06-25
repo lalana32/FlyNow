@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "Y+8r9Xa0J7c9oK/Rg6TQmaWbcd9rRJ+KIhjNVPy5iUE=",
+  "Source": "BookingServiceApi",
+  "BasePath": "_content/BookingServiceApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

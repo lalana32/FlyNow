@@ -23,9 +23,11 @@ const SignUpPage = () => {
   } = useForm<RegisterDto>();
   const dispatch = useAppDispatch();
   const [toastOpen, setToastOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleRegisterSubmit = async (data: RegisterDto) => {
     try {
+      setLoading(true);
       const response = await dispatch(registerUser(data));
       console.log(response);
       if (response.meta.requestStatus === 'fulfilled') {
@@ -34,6 +36,8 @@ const SignUpPage = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -71,13 +75,14 @@ const SignUpPage = () => {
           <FormField
             name='password'
             control={control}
+            autoComplete='off'
             label='Password'
             type='password'
             rules={{ required: 'Password is required' }}
             error={!!errors.password}
             helperText={errors.password?.message}
           />
-          <SubmitButton text='Sign Up' />
+          <SubmitButton text='Sign Up' loading={loading} />
           <Typography variant='body2' sx={{ mt: 3 }}>
             Already have an account? <NavLink to='/'>Sign In</NavLink>
           </Typography>

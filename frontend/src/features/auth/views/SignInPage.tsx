@@ -16,6 +16,7 @@ import { useState } from 'react';
 
 const SignInPage = () => {
   const [serverError, setServerError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const {
     control,
@@ -27,10 +28,10 @@ const SignInPage = () => {
   const handleLoginSubmit = async (data: LoginDto) => {
     try {
       setServerError('');
+      setLoading(true);
       const response = await dispatch(loginUser(data));
 
       if (loginUser.fulfilled.match(response)) {
-        // Sada pristupamo response.payload.data.token umesto response.payload.token
         if (response.meta.requestStatus === 'fulfilled') {
           navigate('/home');
         } else {
@@ -42,6 +43,8 @@ const SignInPage = () => {
     } catch (err) {
       setServerError('An unexpected error occurred');
       console.error('Unexpected error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -99,7 +102,7 @@ const SignInPage = () => {
             </Typography>
           )}
 
-          <SubmitButton text='Login' type='submit' />
+          <SubmitButton text='Login' type='submit' loading={loading} />
 
           <Typography variant='body2' sx={{ mt: 3 }}>
             Don’t have an account? <NavLink to='/signup'>Sign Up</NavLink>
