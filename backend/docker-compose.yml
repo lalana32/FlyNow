@@ -8,6 +8,8 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
     depends_on:
       - authservice
+      - flightservice
+      - bookingservice
     networks:
       - backend
 

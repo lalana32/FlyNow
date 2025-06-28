@@ -6,11 +6,16 @@ using BookingServiceApplication.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers(); // ✅ Dodaj kontrolere
-builder.Services.AddEndpointsApiExplorer(); // ✅ Za Swagger
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer(); 
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(BookingProfile)); // ✅ Dodaj Swagger (Swashbuckle)
+builder.Services.AddAutoMapper(typeof(BookingProfile));
 builder.Services.AddScoped<IBookingService, BookingService>();
+
+builder.Services.AddHttpClient<IFlightLookupService, FlightLookupService>(client =>
+{
+    client.BaseAddress = new Uri("http://yarp"); 
+});
 
 // DbContext konfiguracija
 builder.Services.AddDbContext<BookingDbContext>(options =>
@@ -21,8 +26,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();        // ✅ Swagger middleware
-    app.UseSwaggerUI();      // ✅ Swagger UI
+    app.UseSwagger();
+    app.UseSwaggerUI();      
 }
 
 app.UseHttpsRedirection();
