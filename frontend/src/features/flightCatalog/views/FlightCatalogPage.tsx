@@ -2,10 +2,15 @@ import { useSearchParams } from 'react-router-dom';
 import { searchFlights } from '../../home/api/homeApi';
 import type { FlightSearchResponse } from '../models/models';
 import { Typography, Box, Paper } from '@mui/material';
-import FlightCard from '../components/FlightCard';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../../shared/components/LoadingSpinner';
 import { MdOutlineFlightTakeoff, MdOutlineFlightLand } from 'react-icons/md';
+import NoFlightsFound from '../components/NoFlightsFound';
+import FlightSection from '../components/FlightSection';
+import {
+  PaperStyles,
+  TypographyStyles,
+} from '../styles/FlightCatalogPageStyles';
 
 const FlightCatalog = () => {
   const [searchParams] = useSearchParams();
@@ -56,116 +61,31 @@ const FlightCatalog = () => {
         minHeight: '100vh',
       }}
     >
-      <Paper
-        elevation={0}
-        sx={{
-          p: 4,
-          mb: 4,
-          borderRadius: 4,
-          boxShadow: '0 8px 32px rgba(0,0,0,0.05)',
-          background: 'rgba(255,255,255,0.9)',
-          backdropFilter: 'blur(8px)',
-        }}
-      >
-        <Typography
-          variant='h3'
-          sx={{
-            fontWeight: 700,
-            color: 'primary.main',
-            mb: 4,
-            position: 'relative',
-          }}
-        >
+      <Paper elevation={0} sx={{ ...PaperStyles }}>
+        <Typography variant='h3' sx={{ ...TypographyStyles }}>
           Available Flights
         </Typography>
 
-        {departureFlights.length > 0 && (
-          <Box sx={{ mb: 6 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-              <MdOutlineFlightTakeoff
-                style={{
-                  fontSize: '2rem',
-                  color: '#1976d2', // MUI primary color
-                  marginRight: '8px',
-                }}
-              />
-              <Typography
-                variant='h5'
-                sx={{
-                  color: 'text.secondary',
-                }}
-              >
-                Departure Flights
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 3,
-              }}
-            >
-              {departureFlights.map((flight) => (
-                <Box key={flight.id} sx={{ width: '100%' }}>
-                  <FlightCard {...flight} />
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        )}
-
-        {returnFlights.length > 0 && (
-          <Box sx={{ mb: 6 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-              <MdOutlineFlightLand
-                style={{
-                  fontSize: '2rem',
-                  color: '#1976d2', // MUI primary color
-                  marginRight: '8px',
-                }}
-              />
-              <Typography
-                variant='h5'
-                sx={{
-                  color: 'text.secondary',
-                }}
-              >
-                Return Flights
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 3,
-              }}
-            >
-              {returnFlights.map((flight) => (
-                <Box key={flight.id} sx={{ width: '100%' }}>
-                  <FlightCard {...flight} />
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        )}
-
+        <FlightSection
+          title='Departure Flights'
+          icon={
+            <MdOutlineFlightTakeoff
+              style={{ fontSize: '2rem', color: '#1976d2' }}
+            />
+          }
+          flights={departureFlights}
+        />
+        <FlightSection
+          title='Return Flights'
+          icon={
+            <MdOutlineFlightLand
+              style={{ fontSize: '2rem', color: '#1976d2' }}
+            />
+          }
+          flights={returnFlights}
+        />
         {departureFlights.length === 0 && returnFlights.length === 0 && (
-          <Box
-            sx={{
-              textAlign: 'center',
-              py: 10,
-              border: '1px dashed',
-              borderColor: 'divider',
-              borderRadius: 2,
-            }}
-          >
-            <Typography variant='h5' sx={{ mb: 2 }}>
-              No flights found
-            </Typography>
-            <Typography variant='body1' color='text.secondary'>
-              Try adjusting your search criteria
-            </Typography>
-          </Box>
+          <NoFlightsFound />
         )}
       </Paper>
     </Box>

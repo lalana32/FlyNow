@@ -33,7 +33,7 @@ namespace BookingServiceApplication.Services
            var flight = await _flightLookupService.GetFlightAsync(createBookingDto.DepartureAirport, createBookingDto.ArrivalAirport,
                 departureDateString, createBookingDto.Adults, null);
             if (flight == null)
-                throw new Exception("Let nije pronađen."); // ili možeš vratiti BadRequest iz kontrolera
+                throw new Exception("Let nije pronađen.");
 
             var booking = new Booking
             {

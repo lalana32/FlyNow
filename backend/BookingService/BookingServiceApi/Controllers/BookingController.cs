@@ -33,10 +33,11 @@ namespace BookingServiceApi.Controllers
                 null
             );
 
-            if (flightSearchResult == null)
-            {
-                return BadRequest("Letovi nisu dostupni sa zadatim parametrima.");
-            }
+            if (flightSearchResult == null || 
+                (!flightSearchResult.DepartureFlights.Any() && !flightSearchResult.ReturnFlights.Any()))
+                {
+                    return BadRequest("Letovi nisu dostupni sa zadatim parametrima.");
+                }
 
             var created = await _bookingService.CreateBookingAsync(createBookingDto);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);

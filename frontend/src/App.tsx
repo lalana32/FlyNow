@@ -1,12 +1,15 @@
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import AppRoutes from './routes/AppRoutes';
 import AppContent from './app/AppContent';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <AppContent />
+      </LocalizationProvider>
     </BrowserRouter>
   );
 }

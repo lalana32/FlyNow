@@ -1,6 +1,8 @@
 import { Grid, TextField, type SxProps, type Theme } from '@mui/material';
 import { Controller } from 'react-hook-form'; // vrednost, komponenta
 import type { Control, FieldValues, Path } from 'react-hook-form'; // samo tipovi
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs, { Dayjs } from 'dayjs';
 
 interface Props<T extends FieldValues> {
   name: Path<T>;
@@ -28,17 +30,48 @@ const SearchField = <T extends FieldValues>({
       <Controller
         name={name}
         control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            label={label}
-            type={type}
-            variant='outlined'
-            InputLabelProps={{ shrink: true }}
-            placeholder={placeholder}
-            inputProps={inputProps}
-          />
-        )}
+        render={({ field: { onChange, value }, fieldState: { error } }) => {
+          if (type === 'date') {
+            // DatePicker zahtijeva Dayjs ili null kao value
+            const parsedValue = value ? dayjs(value) : null;
+
+            return (
+              <DatePicker
+                label={label}
+                value={parsedValue}
+                enableAccessibleFieldDOMStructure={false}
+                sx={{ width: '180px' }}
+                onChange={(date) => {
+                  onChange(date ? dayjs(date).format('YYYY-MM-DD') : null);
+                }}
+                slots={{ textField: TextField }}
+                slotProps={{
+                  textField: {
+                    error: !!error,
+                    helperText: error?.message,
+                    placeholder: placeholder,
+                  },
+                }}
+              />
+            );
+          }
+
+          // Za ostale tipove, običan TextField
+          return (
+            <TextField
+              {...{ onChange, value }}
+              label={label}
+              type={type}
+              variant='outlined'
+              InputLabelProps={{ shrink: true }}
+              placeholder={placeholder}
+              inputProps={inputProps}
+              error={!!error}
+              helperText={error?.message}
+              sx={sx}
+            />
+          );
+        }}
       />
     </Grid>
   );

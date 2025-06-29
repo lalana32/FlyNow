@@ -4,19 +4,51 @@ import {
   Toolbar,
   Typography,
   Avatar,
-  Box,
   Tooltip,
   IconButton,
   useMediaQuery,
   useTheme,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import { FiMenu } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/hooks';
+import { logout } from '../../features/auth/state/authSlice';
+import {
+  MenuStyles,
+  ToolbarStyles,
+  TypographyStyles,
+} from '../styles/navBarStyles';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMyProfile = () => {
+    navigate('my-profile');
+    handleClose();
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
+    handleClose();
+  };
+
+  const open = Boolean(anchorEl);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,25 +79,15 @@ const Navbar = () => {
     >
       <Toolbar
         sx={{
-          height: '100%',
-          px: { xs: 2, sm: 4 },
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          ...ToolbarStyles,
         }}
       >
         <Typography
           variant='h6'
           sx={{
-            flexGrow: 1,
-            fontWeight: 900,
+            ...TypographyStyles,
             fontSize: scrolled ? '1.3rem' : '1.8rem',
-            color: '#fff',
-            userSelect: 'none',
-            transition: 'font-size 0.3s ease',
-            cursor: 'default',
-            letterSpacing: '0.1em',
-            textShadow: '0 0 8px rgba(255,255,255,0.3)', // Svetlucavi efekat na tekstu
+            // Svetlucavi efekat na tekstu
           }}
         >
           KiFly ✈️
@@ -81,24 +103,41 @@ const Navbar = () => {
             <FiMenu size={28} />
           </IconButton>
         ) : (
-          <Tooltip title='Logged in as John Doe' arrow>
-            <Avatar
-              alt='User Avatar'
-              src='https://i.pravatar.cc/150?img=12'
-              sx={{
-                width: scrolled ? 36 : 48,
-                height: scrolled ? 36 : 48,
-                transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                boxShadow: scrolled
-                  ? '0 0 16px 4px rgba(255,255,255,0.85)'
-                  : '0 0 8px 2px rgba(255,255,255,0.5)',
-                '&:hover': {
-                  boxShadow: '0 0 24px 6px rgba(255,255,255,1)',
-                },
+          <>
+            <IconButton onClick={handleOpen} size='small' sx={{ ml: 2 }}>
+              <Avatar
+                alt='User Avatar'
+                src='https://i.pravatar.cc/150?img=12'
+                sx={{
+                  width: scrolled ? 36 : 48,
+                  height: scrolled ? 36 : 48,
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                  boxShadow: scrolled
+                    ? '0 0 16px 4px rgba(255,255,255,0.85)'
+                    : '0 0 8px 2px rgba(255,255,255,0.5)',
+                  '&:hover': {
+                    boxShadow: '0 0 24px 6px rgba(255,255,255,1)',
+                  },
+                }}
+              />
+            </IconButton>
+
+            <Menu
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                ...MenuStyles,
               }}
-            />
-          </Tooltip>
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <MenuItem onClick={handleMyProfile}>My Profile</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
+          </>
         )}
       </Toolbar>
     </AppBar>

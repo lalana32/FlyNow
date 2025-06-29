@@ -13,7 +13,9 @@ const AppContent = () => {
   return (
     <>
       {shouldShowNavbar && <Navbar />}
-      <AppRoutes />
+      <div style={{ paddingTop: '80px' }}>
+        <AppRoutes />
+      </div>
     </>
   );
 };

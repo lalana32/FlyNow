@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using BookingServiceApplication.Interfaces;
 using BookingServiceApplication.DTOs.External;
+using System.Text.Json;
 
 
 namespace BookingServiceApplication.Services
@@ -35,6 +36,7 @@ namespace BookingServiceApplication.Services
                 return null;
 
             var result = await response.Content.ReadFromJsonAsync<FlightSearchResultDto>();
+            Console.WriteLine($"Poziv servisa za letove: {JsonSerializer.Serialize(result)}");
             return result;
         }
 
