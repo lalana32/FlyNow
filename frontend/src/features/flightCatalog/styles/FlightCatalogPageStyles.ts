@@ -9,7 +9,7 @@ export const PaperStyles = {
 
 export const TypographyStyles = {
   fontWeight: 700,
-  color: 'primary.main',
+  color: 'black',
   mb: 4,
   position: 'relative',
 };

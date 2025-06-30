@@ -22,7 +22,7 @@ export const TypographyStyles = {
   color: '#fff',
   userSelect: 'none',
   transition: 'font-size 0.3s ease',
-  cursor: 'default',
+  cursor: 'pointer',
   letterSpacing: '0.1em',
   textShadow: '0 0 8px rgba(255,255,255,0.3)',
   flexGrow: 1,

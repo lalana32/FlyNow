@@ -6,30 +6,26 @@ import {
   CardContent,
   Grid,
   Typography,
+  TextField,
   Stack,
+  Divider,
 } from '@mui/material';
-import { deepPurple } from '@mui/material/colors';
-import { MdEdit } from 'react-icons/md';
 import { useAppSelector } from '../../../hooks/hooks';
+import { useState } from 'react';
 
 const MyProfile = () => {
   const user = useAppSelector((state) => state.auth.user!.data);
-  console.log(user);
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const handleSaveChanges = () => {
+    console.log('Saving changes:', { firstName, lastName, phone });
+  };
 
   const handleLogout = () => {
     console.log('Logout clicked');
-    // ovde pozovi logout redux akciju ili obradi logout
-  };
-
-  const handleDeleteAccount = () => {
-    if (
-      window.confirm(
-        'Da li ste sigurni da želite da obrišete nalog? Ova akcija je nepovratna.'
-      )
-    ) {
-      console.log('Delete account clicked');
-      // ovde pozovi API za brisanje naloga ili redux akciju
-    }
   };
 
   return (
@@ -39,16 +35,18 @@ const MyProfile = () => {
         justifyContent: 'center',
         mt: 8,
         px: 2,
+        background: 'white',
+        minHeight: '100vh',
+        py: 6,
       }}
     >
       <Card
         sx={{
-          maxWidth: 600,
+          maxWidth: 700,
           width: '100%',
           borderRadius: 4,
-          boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
-          background: 'linear-gradient(135deg, #1f1f1f, #2a2a2a)',
-          color: 'white',
+          boxShadow: 0,
+          background: '#ffffff',
         }}
       >
         <Box
@@ -61,7 +59,7 @@ const MyProfile = () => {
         >
           <Avatar
             sx={{
-              bgcolor: deepPurple[500],
+              bgcolor: 'black',
               width: 100,
               height: 100,
               fontSize: 36,
@@ -71,75 +69,73 @@ const MyProfile = () => {
             {user?.username?.charAt(0).toUpperCase()}
           </Avatar>
           <Typography variant='h5' fontWeight={600}>
-            {user?.username}
+            Stefan Lalovic
           </Typography>
-          <Typography variant='body1' sx={{ opacity: 0.7 }}>
+          <Typography variant='body1' sx={{ opacity: 0.6 }}>
             @{user?.username}
           </Typography>
         </Box>
 
         <CardContent>
-          <Grid container spacing={2} mt={1}>
+          <Divider sx={{ my: 3 }} />
+
+          <Grid container spacing={2}>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <Typography variant='subtitle2' color='gray'>
-                Email
-              </Typography>
-              <Typography variant='body1'>{user?.email}</Typography>
+              <TextField
+                label='Email'
+                value={user?.email}
+                fullWidth
+                InputProps={{ readOnly: false }}
+              />
             </Grid>
+
             <Grid size={{ xs: 12, sm: 6 }}>
-              <Typography variant='subtitle2' color='gray'>
-                Uloga
-              </Typography>
-              <Typography variant='body1'>{user?.role}</Typography>
+              <TextField
+                label='Ime'
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 6 }}>
+              <TextField
+                label='Prezime'
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 6 }}>
+              <TextField
+                label='Broj telefona'
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                fullWidth
+              />
             </Grid>
           </Grid>
 
-          <Box textAlign='center' mt={4}>
+          <Stack direction='row' spacing={3} justifyContent='center' mt={4}>
             <Button
               variant='contained'
               color='primary'
-              startIcon={<MdEdit size={20} />}
-              sx={{
-                borderRadius: 3,
-                px: 4,
-                boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-              }}
+              onClick={handleSaveChanges}
+              sx={{ px: 0, borderRadius: 3, width: '160px' }}
             >
-              Uredi profil
+              Save Changes
             </Button>
-          </Box>
 
-          <Box mt={4}>
-            <Stack direction='row' spacing={4} justifyContent='center'>
-              <Button
-                variant='contained'
-                color='primary'
-                onClick={handleLogout}
-                sx={{
-                  borderRadius: 3,
-                  px: 4,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                  minWidth: 140,
-                }}
-              >
-                Logout
-              </Button>
-
-              <Button
-                variant='contained'
-                color='error'
-                onClick={handleDeleteAccount}
-                sx={{
-                  borderRadius: 3,
-                  px: 4,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                  minWidth: 140,
-                }}
-              >
-                Obriši nalog
-              </Button>
-            </Stack>
-          </Box>
+            <Button
+              variant='outlined'
+              color='error'
+              onClick={handleLogout}
+              sx={{ px: 4, borderRadius: 3, width: '160px' }}
+            >
+              Logout
+            </Button>
+          </Stack>
         </CardContent>
       </Card>
     </Box>

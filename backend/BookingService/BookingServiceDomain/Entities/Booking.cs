@@ -11,8 +11,6 @@ namespace BookingServiceDomain.Entities
         public string UserId { get; set; }     
         public string FlightId { get; set; }   
         public DateTime BookingDate { get; set; } = DateTime.UtcNow;
-
-        // Keširani podaci iz leta u momentu rezervacije:
         public string DepartureAirport { get; set; }
         public DateTime DepartureTime { get; set; }
         public string ArrivalAirport { get; set; }

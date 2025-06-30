@@ -44,11 +44,11 @@ namespace BookingServiceApplication.Services
             ArrivalAirport = createBookingDto.ArrivalAirport,
             DepartureTime = DateTime.SpecifyKind(
             DateTime.ParseExact(createBookingDto.DepartureTime.ToString("yyyy-MM-ddTHH:mm:ss"), "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture),
-            DateTimeKind.Utc // Eksplicitno postavite UTC
+            DateTimeKind.Utc 
         ),
             ArrivalTime = DateTime.SpecifyKind(
             DateTime.ParseExact(createBookingDto.ArrivalTime.ToString("yyyy-MM-ddTHH:mm:ss"), "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture),
-            DateTimeKind.Utc // Eksplicitno postavite UTC
+            DateTimeKind.Utc 
             ),
 
             CarrierCode = createBookingDto.CarrierCode,

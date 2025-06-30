@@ -70,7 +70,7 @@ const FlightCatalog = () => {
           title='Departure Flights'
           icon={
             <MdOutlineFlightTakeoff
-              style={{ fontSize: '2rem', color: '#1976d2' }}
+              style={{ fontSize: '2rem', color: 'black' }}
             />
           }
           flights={departureFlights}
@@ -78,9 +78,7 @@ const FlightCatalog = () => {
         <FlightSection
           title='Return Flights'
           icon={
-            <MdOutlineFlightLand
-              style={{ fontSize: '2rem', color: '#1976d2' }}
-            />
+            <MdOutlineFlightLand style={{ fontSize: '2rem', color: 'black' }} />
           }
           flights={returnFlights}
         />

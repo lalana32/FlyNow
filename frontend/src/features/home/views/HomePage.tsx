@@ -3,6 +3,7 @@ import type { FlightSearchParams } from '../models/models';
 import FlightSearchForm from '../components/searchForm/FlightSearchForm';
 import { useNavigate } from 'react-router-dom';
 import PopularDestinationCard from '../components/popularDestinations/PopularDestinationCard';
+import Footer from '../components/footer/Footer';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const HomePage = () => {
           sx={{
             height: '400px',
             backgroundImage:
-              'url(https://c.ekstatic.net/ecl/aircraft-interior/premium-economy/emirates-premium-economy-seat-w1920x480.jpg?h=_WrZVzOa_-M3hhiFNdXD7g)',
+              'url(https://calaero.edu/wp-content/uploads/2023/08/iStock-1332501286-scaled.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -93,8 +94,8 @@ const HomePage = () => {
             flightCount={28}
           />
         </Box>
-        <Box sx={{ mt: 'auto' }}></Box>
       </Container>
+      <Footer />
     </Box>
   );
 };

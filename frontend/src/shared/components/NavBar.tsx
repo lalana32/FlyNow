@@ -10,6 +10,7 @@ import {
   useTheme,
   Menu,
   MenuItem,
+  Link,
 } from '@mui/material';
 import { FiMenu } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +39,12 @@ const Navbar = () => {
   };
 
   const handleMyProfile = () => {
-    navigate('my-profile');
+    navigate('/my-profile');
+    handleClose();
+  };
+
+  const handleMyBookings = () => {
+    navigate('/my-bookings');
     handleClose();
   };
 
@@ -70,7 +76,7 @@ const Navbar = () => {
           : 'linear-gradient(90deg, #1c1c1c, #2c2c2c)', // Tamnija, ali jača boja i bez providnosti
         backdropFilter: 'blur(20px)',
         transition: 'all 0.5s ease',
-        height: scrolled ? 56 : 80,
+        height: scrolled ? 56 : 60,
         justifyContent: 'center',
         boxShadow: scrolled
           ? '0 8px 24px rgba(0,0,0,0.7)'
@@ -82,16 +88,18 @@ const Navbar = () => {
           ...ToolbarStyles,
         }}
       >
-        <Typography
-          variant='h6'
-          sx={{
-            ...TypographyStyles,
-            fontSize: scrolled ? '1.3rem' : '1.8rem',
-            // Svetlucavi efekat na tekstu
-          }}
-        >
-          KiFly ✈️
-        </Typography>
+        <Link href='/home' className='navlink' sx={{ textDecoration: 'none' }}>
+          <Typography
+            variant='h6'
+            sx={{
+              ...TypographyStyles,
+              fontSize: scrolled ? '1.3rem' : '1.8rem',
+              // Svetlucavi efekat na tekstu
+            }}
+          >
+            KiFly
+          </Typography>
+        </Link>
 
         {isMobile ? (
           <IconButton
@@ -109,16 +117,10 @@ const Navbar = () => {
                 alt='User Avatar'
                 src='https://i.pravatar.cc/150?img=12'
                 sx={{
-                  width: scrolled ? 36 : 48,
-                  height: scrolled ? 36 : 48,
+                  width: scrolled ? 36 : 40,
+                  height: scrolled ? 36 : 40,
                   transition: 'all 0.3s ease',
                   cursor: 'pointer',
-                  boxShadow: scrolled
-                    ? '0 0 16px 4px rgba(255,255,255,0.85)'
-                    : '0 0 8px 2px rgba(255,255,255,0.5)',
-                  '&:hover': {
-                    boxShadow: '0 0 24px 6px rgba(255,255,255,1)',
-                  },
                 }}
               />
             </IconButton>
@@ -133,8 +135,10 @@ const Navbar = () => {
               }}
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+              disableScrollLock={true}
             >
               <MenuItem onClick={handleMyProfile}>My Profile</MenuItem>
+              <MenuItem onClick={handleMyBookings}>My bookings</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </>

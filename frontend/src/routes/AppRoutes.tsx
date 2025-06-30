@@ -5,6 +5,7 @@ import SignUpPage from '../features/auth/views/SignUpPage';
 import HomePage from '../features/home/views/HomePage';
 import FlightCatalogPage from '../features/flightCatalog/views/FlightCatalogPage';
 import MyProfile from '../features/myProfile/views/MyProfile';
+import MyBookings from '../features/myBookings/views/MyBookings';
 
 const AppRoutes = () => {
   return (
@@ -14,7 +15,9 @@ const AppRoutes = () => {
       <Route path='/confirm-email' element={<ConfirmEmailPage />} />
       <Route path='/signup' element={<SignUpPage />} />
       <Route path='/flight-catalog' element={<FlightCatalogPage />} />
-      <Route path='my-profile' element={<MyProfile />} />
+      <Route path='/my-profile' element={<MyProfile />} />
+      <Route path='/my-bookings' element={<MyBookings />} />
+      {/* <Route path='/map' element={<SeatMap />} /> */}
     </Routes>
   );
 };
