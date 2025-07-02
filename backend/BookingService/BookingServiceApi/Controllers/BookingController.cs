@@ -22,26 +22,32 @@ namespace BookingServiceApi.Controllers
             _flightLookupService = flightLookupService;
         }
 
-        [HttpPost]
+       [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateBookingDto createBookingDto)
         {
-            var flightSearchResult = await _flightLookupService.GetFlightAsync(
-                createBookingDto.DepartureAirport,
-                createBookingDto.ArrivalAirport,
-                createBookingDto.DepartureTime.ToString("yyyy-MM-dd"),
-                createBookingDto.Adults,
-                null
-            );
+            // Proveri da li su svi segmenti dostupni
+            foreach(var segment in createBookingDto.FlightSegments)
+            {
+                var flightSearchResult = await _flightLookupService.GetFlightAsync(
+                    segment.DepartureAirport,
+                    segment.ArrivalAirport,
+                    segment.DepartureTime.ToString("yyyy-MM-dd"),
+                    createBookingDto.BookingItems.Count, // broj putnika
+                    null
+                );
 
-            if (flightSearchResult == null || 
-                (!flightSearchResult.DepartureFlights.Any() && !flightSearchResult.ReturnFlights.Any()))
+                if (flightSearchResult == null || 
+                    (!flightSearchResult.DepartureFlights.Any() && !flightSearchResult.ReturnFlights.Any()))
                 {
-                    return BadRequest("Letovi nisu dostupni sa zadatim parametrima.");
+                    return BadRequest($"Letovi nisu dostupni za segment: {segment.DepartureAirport} -> {segment.ArrivalAirport} na datum {segment.DepartureTime:yyyy-MM-dd}");
                 }
+            }
 
+            // Kreiraj rezervaciju
             var created = await _bookingService.CreateBookingAsync(createBookingDto);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
+
 
         [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetByUserId(string userId)

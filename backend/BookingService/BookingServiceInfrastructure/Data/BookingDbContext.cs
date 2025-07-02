@@ -14,10 +14,25 @@ namespace BookingServiceInfrastructure.Data
         }
 
         public DbSet<Booking> Bookings { get; set; }
-        
-         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DbSet<BookingItem> BookingItems { get; set; }
+
+        public DbSet<FlightSegment> FlightSegments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Booking>()
+                .HasMany(b => b.BookingItems)
+                .WithOne(bi => bi.Booking)
+                .HasForeignKey(bi => bi.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Booking>()
+                .HasMany(b => b.FlightSegments)
+                .WithOne(fs => fs.Booking)
+                .HasForeignKey(fs => fs.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -28,39 +28,64 @@ namespace BookingServiceApplication.Services
 
         public async Task<BookingDto> CreateBookingAsync(CreateBookingDto createBookingDto)
         {
-           string departureDateString = createBookingDto.DepartureTime.ToString("yyyy-MM-dd");
-
-           var flight = await _flightLookupService.GetFlightAsync(createBookingDto.DepartureAirport, createBookingDto.ArrivalAirport,
-                departureDateString, createBookingDto.Adults, null);
-            if (flight == null)
-                throw new Exception("Let nije pronađen.");
-
+            // Kreiraj novi Booking entitet
             var booking = new Booking
             {
                 Id = Guid.NewGuid(),
-            UserId = createBookingDto.UserId,
-            FlightId = createBookingDto.FlightId,
-            DepartureAirport = createBookingDto.DepartureAirport,
-            ArrivalAirport = createBookingDto.ArrivalAirport,
-            DepartureTime = DateTime.SpecifyKind(
-            DateTime.ParseExact(createBookingDto.DepartureTime.ToString("yyyy-MM-ddTHH:mm:ss"), "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture),
-            DateTimeKind.Utc 
-        ),
-            ArrivalTime = DateTime.SpecifyKind(
-            DateTime.ParseExact(createBookingDto.ArrivalTime.ToString("yyyy-MM-ddTHH:mm:ss"), "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture),
-            DateTimeKind.Utc 
-            ),
-
-            CarrierCode = createBookingDto.CarrierCode,
-            FlightNumber = createBookingDto.FlightNumber,
-            TotalPrice = createBookingDto.TotalPrice,
-            Currency = createBookingDto.Currency,
+                UserId = createBookingDto.UserId,
+                BookingDate = DateTime.UtcNow,
+                TotalPrice = createBookingDto.TotalPrice,
+                Currency = createBookingDto.Currency,
             };
 
-            await _context.AddAsync(booking);
+            // Mapiraj letove (FlightSegments)
+            foreach (var segmentDto in createBookingDto.FlightSegments)
+            {
+                var flightSegment = new FlightSegment
+                {
+                    Id = Guid.NewGuid(),
+                    BookingId = booking.Id,
+                    FlightId = segmentDto.FlightId,
+                    DepartureAirport = segmentDto.DepartureAirport,
+                    DepartureTime = DateTime.SpecifyKind(segmentDto.DepartureTime, DateTimeKind.Utc),
+                    ArrivalAirport = segmentDto.ArrivalAirport,
+                    ArrivalTime = DateTime.SpecifyKind(segmentDto.ArrivalTime, DateTimeKind.Utc),
+                    CarrierCode = segmentDto.CarrierCode,
+                    FlightNumber = segmentDto.FlightNumber,
+                    Booking = booking
+                };
+
+                booking.FlightSegments.Add(flightSegment);
+            }
+
+            // Mapiraj stavke rezervacije (BookingItems)
+            foreach (var itemDto in createBookingDto.BookingItems)
+            {
+                var bookingItem = new BookingItem
+                {
+                    Id = Guid.NewGuid(),
+                    BookingId = booking.Id,
+                    PassengerName = itemDto.PassengerName,
+                    PassengerLastName = itemDto.PassengerLastName,
+                    PassengerPassportNumber = itemDto.PassengerPassportNumber,
+                    SeatNumber = itemDto.SeatNumber,
+                    BaggageOptions = itemDto.BaggageOptions,
+                    Booking = booking
+                };
+
+                booking.BookingItems.Add(bookingItem);
+            }
+
+            // Dodaj Booking u kontekst i snimi promene
+            await _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
-            return _mapper.Map<BookingDto>(booking);
+
+            // Mapiranje u BookingDto (pretpostavljam da imaš AutoMapper)
+            var bookingDto = _mapper.Map<BookingDto>(booking);
+
+            return bookingDto;
         }
+
 
         public async Task<IEnumerable<BookingDto>> GetBookingsByUserIdAsync(string userId)
         {
