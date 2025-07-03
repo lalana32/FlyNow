@@ -19,15 +19,29 @@ builder.Services.AddHttpClient<IFlightLookupService, FlightLookupService>(client
 
 // DbContext konfiguracija
 builder.Services.AddDbContext<BookingDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))); // 🛠 ispravljena greška u "Conncetion"
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    
+    builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173") // React dev server
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // ako koristiš cookies
+        });
+}); 
 
 var app = builder.Build();
+
+app.UseCors("AllowFrontend");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();      
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
