@@ -22,6 +22,7 @@
 - `EmailService` — Sends transactional emails (e.g., registration, password reset)
 - `FlightService` — Manages flight search, itineraries, and seat availability
 - `YarpProxy` — Reverse proxy that routes all frontend and external traffic to the appropriate backend service
+- `BookingService` — Manages booking process
 
 ---
 
