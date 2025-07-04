@@ -25,14 +25,13 @@ namespace BookingServiceApi.Controllers
        [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateBookingDto createBookingDto)
         {
-            // Proveri da li su svi segmenti dostupni
             foreach(var segment in createBookingDto.FlightSegments)
             {
                 var flightSearchResult = await _flightLookupService.GetFlightAsync(
                     segment.DepartureAirport,
                     segment.ArrivalAirport,
                     segment.DepartureTime.ToString("yyyy-MM-dd"),
-                    createBookingDto.BookingItems.Count, // broj putnika
+                    createBookingDto.BookingItems.Count,
                     null
                 );
 
@@ -43,7 +42,6 @@ namespace BookingServiceApi.Controllers
                 }
             }
 
-            // Kreiraj rezervaciju
             var created = await _bookingService.CreateBookingAsync(createBookingDto);
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }

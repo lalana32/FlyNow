@@ -28,7 +28,7 @@ namespace BookingServiceApplication.Services
 
         public async Task<BookingDto> CreateBookingAsync(CreateBookingDto createBookingDto)
         {
-            // Kreiraj novi Booking entitet
+
             var booking = new Booking
             {
                 Id = Guid.NewGuid(),
@@ -38,7 +38,6 @@ namespace BookingServiceApplication.Services
                 Currency = createBookingDto.Currency,
             };
 
-            // Mapiraj letove (FlightSegments)
             foreach (var segmentDto in createBookingDto.FlightSegments)
             {
                 var flightSegment = new FlightSegment
@@ -58,7 +57,6 @@ namespace BookingServiceApplication.Services
                 booking.FlightSegments.Add(flightSegment);
             }
 
-            // Mapiraj stavke rezervacije (BookingItems)
             foreach (var itemDto in createBookingDto.BookingItems)
             {
                 var bookingItem = new BookingItem
@@ -76,11 +74,9 @@ namespace BookingServiceApplication.Services
                 booking.BookingItems.Add(bookingItem);
             }
 
-            // Dodaj Booking u kontekst i snimi promene
             await _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
 
-            // Mapiranje u BookingDto (pretpostavljam da imaš AutoMapper)
             var bookingDto = _mapper.Map<BookingDto>(booking);
 
             return bookingDto;
@@ -90,6 +86,8 @@ namespace BookingServiceApplication.Services
         public async Task<IEnumerable<BookingDto>> GetBookingsByUserIdAsync(string userId)
         {
            var bookings = await _context.Bookings
+            .Include(b => b.FlightSegments)
+            .Include(b => b.BookingItems)
             .Where(b => b.UserId == userId)
             .ToListAsync();
 
