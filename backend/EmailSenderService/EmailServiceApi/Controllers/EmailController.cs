@@ -23,7 +23,7 @@ namespace EmailServiceApi.Controllers
         [HttpPost("send-verification-email")]
         public async Task<IActionResult> SendVerificationEmail(string email, string confirmationLink)
         {
-            
+
             try
             {
                 await _emailService.SendVerificationEmailAsync(email, confirmationLink);
@@ -33,6 +33,13 @@ namespace EmailServiceApi.Controllers
             {
                 return BadRequest($"Error sending email: {ex.Message}");
             }
+        }
+
+        [HttpPost("send-ticket")]
+        public async Task<IActionResult> SendTicket([FromBody] TicketRequest request)
+        {
+            await _emailService.SendTicketEmailAsync(request.Email, request.PassengerName, request.FlightNumber, request.BookingCode);
+            return Ok("Avionska karta poslata na email.");
         }
     }
 }
