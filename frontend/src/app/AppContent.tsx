@@ -6,7 +6,7 @@ const AppContent = () => {
   const location = useLocation();
 
   // Rute na kojima NE želimo Navbar
-  const hideNavbarOnRoutes = ['/', '/signup'];
+  const hideNavbarOnRoutes = ['/', '/sign-in', '/signup'];
 
   const shouldShowNavbar = !hideNavbarOnRoutes.includes(location.pathname);
 

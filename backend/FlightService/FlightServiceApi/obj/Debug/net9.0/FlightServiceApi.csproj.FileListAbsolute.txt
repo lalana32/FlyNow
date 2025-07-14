@@ -47,3 +47,5 @@ C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApi\obj\Debu
 C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApi\obj\Debug\net9.0\FlightServiceApi.pdb
 C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApi\obj\Debug\net9.0\FlightServiceApi.genruntimeconfig.cache
 C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApi\obj\Debug\net9.0\ref\FlightServiceApi.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApi\bin\Debug\net9.0\DotNetEnv.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\FlightService\FlightServiceApi\bin\Debug\net9.0\Sprache.dll

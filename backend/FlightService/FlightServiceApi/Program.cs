@@ -6,6 +6,9 @@ using FlightServiceInfrastructure.Interfaces;
 using FlightServiceInfrastructure.Services;
 using FlightServiceApplication.Mappings;
 using AutoMapper;
+using DotNetEnv;
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);

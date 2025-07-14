@@ -26,11 +26,16 @@ namespace FlightServiceApplication.Services
         {
             if (!string.IsNullOrEmpty(_accessToken) && _tokenExpiration > DateTime.UtcNow.AddMinutes(1))
             {
-                return _accessToken; // token još važi
+                return _accessToken; 
             }
 
-            var clientId = _configuration["Amadeus:ClientId"];
-            var clientSecret = _configuration["Amadeus:ClientSecret"];
+            var clientId = Environment.GetEnvironmentVariable("AMADEUS_CLIENT_ID");
+            var clientSecret = Environment.GetEnvironmentVariable("AMADEUS_CLIENT_SECRET");
+
+            if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
+            {
+                throw new Exception("Environment variables for Amadeus credentials are missing.");
+            }
 
             var content = new StringContent($"grant_type=client_credentials&client_id={clientId}&client_secret={clientSecret}",
                 Encoding.UTF8, "application/x-www-form-urlencoded");

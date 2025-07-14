@@ -12,10 +12,7 @@ interface FlightSummaryProps {
   selectedTier: string;
 }
 
-const FlightSummary: React.FC<FlightSummaryProps> = ({
-  flightData,
-  selectedTier,
-}) => {
+const FlightSummary: React.FC<FlightSummaryProps> = ({ flightData }) => {
   return (
     <Paper elevation={3} sx={{ p: 3, mt: 3 }}>
       <Typography variant='h6' gutterBottom>
@@ -34,8 +31,7 @@ const FlightSummary: React.FC<FlightSummaryProps> = ({
         {new Date(flightData.departureTime).toLocaleTimeString()}
       </Typography>
       <Typography>
-        <strong>Fare Type:</strong>{' '}
-        {selectedTier.charAt(0).toUpperCase() + selectedTier.slice(1)}
+        <strong>Fare Type:</strong> Regular
       </Typography>
       <Typography variant='h6' sx={{ mt: 2 }}>
         <strong>Total:</strong> {flightData.currency} {flightData.totalPrice}

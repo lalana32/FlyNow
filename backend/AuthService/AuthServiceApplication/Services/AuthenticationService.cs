@@ -60,12 +60,14 @@ namespace AuthServiceApplication.Services
         {
             var response = new ServiceResponse<List<AuthResponse>>();
 
-    // Get all users
+ 
             var users = await  _userManager.Users.ToListAsync();
 
-            // Map the users to UserResponse
+     
             var userResponses = users.Select(user => new AuthResponse
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 Id = user.Id,
                 Email = user.Email!,
                 Username = user.UserName!
@@ -151,7 +153,8 @@ namespace AuthServiceApplication.Services
         }
 
 
-        public async Task<ServiceResponse<string>> RegisterAsync(string email, string username, string password)
+        public async Task<ServiceResponse<string>> RegisterAsync(string firstName, string lastName, string email,
+        string username, string password)
         {
             var response = new ServiceResponse<string>();
 
@@ -171,7 +174,8 @@ namespace AuthServiceApplication.Services
 
             var user = new ApplicationUser
             {
-                
+                FirstName = firstName,
+                LastName = lastName,
                 Email = email,
                 UserName = username
             };

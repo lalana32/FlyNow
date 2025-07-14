@@ -51,24 +51,22 @@ namespace AuthServiceApi.Controllers
         public async Task<ActionResult<ServiceResponse<string>>> Register([FromBody] RegisterDto registerDto)
         {
             if (registerDto == null || string.IsNullOrEmpty(registerDto.UserName) || string.IsNullOrEmpty(registerDto.Password) ||
-                string.IsNullOrEmpty(registerDto.Email))
+                string.IsNullOrEmpty(registerDto.Email) || string.IsNullOrEmpty(registerDto.FirstName)
+                || string.IsNullOrEmpty(registerDto.LastName))
             {
                 return BadRequest("All fields are required.");
             }
+                var response = await _authService.RegisterAsync(registerDto.FirstName, registerDto.LastName, registerDto.Email, registerDto.UserName, registerDto.Password
+                );
+            if (!response.Success)
+            {
+                return BadRequest(response.Message); 
+            }
 
-            try
-            {
-                var response = await _authService.RegisterAsync(registerDto.Email, registerDto.UserName, registerDto.Password);
-                return response;
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);  
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
+            return Ok(response);
+    
+           
+           
         }
 
         [HttpGet("confirm")]

@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+//PRIJE PROMJENE
 import {
   Box,
   Typography,
   Paper,
   Button,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from '@mui/material';
 import ConfirmationStep from '../components/ConfirmationStep';
-import FlightSummary from '../components/FlightSummary';
-import PassengerDetailsForm from '../components/PassengerDetailsForm';
+import PassengerDetailsForm from '../components/passengerDetailsForm/PassengerDetailsForm';
 import PaymentDetailsForm from '../components/PaymentDetailsForm';
 import PaymentStepper from '../components/PaymentStepper';
 import { useAppSelector } from '../../../hooks/hooks';
-
-interface PassengerDetails {
-  firstName: string;
-  lastName: string;
-  passportNumber: string;
-  email: string;
-  phone: string;
-}
 
 interface PaymentDetails {
   cardNumber: string;
@@ -36,28 +33,54 @@ const PaymentPage = () => {
   const navigate = useNavigate();
   const { flightData, selectedTier } = location.state || {};
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const userId = useAppSelector((state) => state.auth.user!.data.id);
+  const queryParams = new URLSearchParams(location.search);
+  const passengers = parseInt(queryParams.get('adults') || '1', 10);
+  const [passengerDetails, setPassengerDetails] = useState(() =>
+    Array.from({ length: passengers }, () => ({
+      firstName: '',
+      lastName: '',
+      passportNumber: '',
+      email: '',
+      phone: '',
+      baggageOptions: 0,
+    }))
+  );
+  console.log('flight data: ', flightData);
+  console.log('putnici: ', passengers);
+
+  const handlePassengerDetailsChange = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    setPassengerDetails((prev) => {
+      const updated = [...prev];
+      updated[index] = { ...updated[index], [name]: value };
+      return updated;
+    });
+  };
 
   const handleSubmitBooking = async () => {
-    if (!flightData || !selectedTier) {
+    if (!flightData) {
       console.error('Missing flight data or selected tier');
       return;
     }
 
     const bookingData = {
-      userId: userId, // Get from auth context
-      totalPrice: flightData.totalPrice,
+      userId: userId,
+      totalPrice: (
+        parseFloat(flightData.totalPrice) * passengerDetails.length
+      ).toFixed(2),
       currency: flightData.currency,
-      bookingItems: [
-        {
-          passengerName: passengerDetails.firstName,
-          passengerLastName: passengerDetails.lastName,
-          passengerPassportNumber: passengerDetails.passportNumber,
-          seatNumber: '12', // Make this dynamic if needed
-          baggageOptions:
-            selectedTier === 'basic' ? 0 : selectedTier === 'regular' ? 1 : 2,
-        },
-      ],
+      bookingItems: passengerDetails.map((p) => ({
+        passengerName: p.firstName,
+        passengerLastName: p.lastName,
+        passengerPassportNumber: p.passportNumber,
+        seatNumber: '12',
+        baggageOptions: p.baggageOptions,
+      })),
       flightSegments: [
         {
           flightId: flightData.id,
@@ -70,14 +93,16 @@ const PaymentPage = () => {
         },
       ],
     };
+
     setIsSubmitting(true);
 
     try {
+      console.log(bookingData);
       const response = await fetch('http://localhost:5004/api/Booking', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // If using auth
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify(bookingData),
       });
@@ -88,23 +113,16 @@ const PaymentPage = () => {
 
       const result = await response.json();
       console.log('Booking successful:', result);
-      handleNext(); // Move to confirmation step
+      handleNext();
     } catch (error) {
       console.error('Booking failed:', error);
-      // Show error to user (you might want to add error state)
     } finally {
       setIsSubmitting(false);
+      setShowSuccessDialog(true);
     }
   };
 
   const [activeStep, setActiveStep] = useState(0);
-  const [passengerDetails, setPassengerDetails] = useState<PassengerDetails>({
-    firstName: '',
-    lastName: '',
-    passportNumber: '',
-    email: '',
-    phone: '',
-  });
 
   const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>({
     cardNumber: '',
@@ -112,13 +130,6 @@ const PaymentPage = () => {
     expiryDate: '',
     cvv: '',
   });
-
-  const handlePassengerDetailsChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { name, value } = e.target;
-    setPassengerDetails((prev) => ({ ...prev, [name]: value }));
-  };
 
   const handlePaymentDetailsChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -133,12 +144,18 @@ const PaymentPage = () => {
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:
-        return (
-          <PassengerDetailsForm
-            details={passengerDetails}
-            onChange={handlePassengerDetailsChange}
-          />
-        );
+        return passengerDetails.map((details, index) => (
+          <Box key={index} sx={{ mb: 4, p: 2 }}>
+            <Typography variant='h6' sx={{ mb: 2 }}>
+              Passenger {index + 1}
+            </Typography>
+            <PassengerDetailsForm
+              details={details}
+              onChange={(e) => handlePassengerDetailsChange(index, e)}
+            />
+          </Box>
+        ));
+
       case 1:
         return (
           <PaymentDetailsForm
@@ -158,7 +175,7 @@ const PaymentPage = () => {
     }
   };
 
-  if (!flightData || !selectedTier) {
+  if (!flightData) {
     return (
       <Box sx={{ p: 3, textAlign: 'center' }}>
         <Typography variant='h6' color='error'>
@@ -175,6 +192,13 @@ const PaymentPage = () => {
     );
   }
 
+  const isPassengerDetailsValid = passengerDetails.every(
+    (p) =>
+      p.firstName.trim() !== '' &&
+      p.lastName.trim() !== '' &&
+      p.passportNumber.trim() !== ''
+  );
+
   return (
     <Box sx={{ maxWidth: 800, mx: 'auto', p: 3 }}>
       <Paper elevation={3} sx={{ p: 3 }}>
@@ -189,12 +213,7 @@ const PaymentPage = () => {
           onNext={handleNext}
           onSubmit={handleSubmitBooking}
           onFinish={() => navigate('/')}
-          isNextDisabled={
-            activeStep === 0 &&
-            (!passengerDetails.firstName ||
-              !passengerDetails.lastName ||
-              !passengerDetails.passportNumber)
-          }
+          isNextDisabled={activeStep === 0 && !isPassengerDetailsValid}
           isSubmitting={isSubmitting}
         />
 
@@ -207,7 +226,39 @@ const PaymentPage = () => {
         {getStepContent(activeStep)}
       </Paper>
 
-      <FlightSummary flightData={flightData} selectedTier={selectedTier} />
+      <Dialog
+        open={showSuccessDialog}
+        onClose={() => setShowSuccessDialog(false)}
+        aria-labelledby='booking-success-dialog'
+      >
+        <DialogTitle id='booking-success-dialog'>
+          Booking Confirmed!
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Your reservation has been successfully scheduled.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: 'center', pb: 3 }}>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => navigate('/my-reservations')}
+            sx={{ mr: 2 }}
+          >
+            Go to My Reservations
+          </Button>
+          <Button
+            variant='outlined'
+            onClick={() => {
+              setShowSuccessDialog(false);
+              navigate(-1);
+            }}
+          >
+            Book Return Flight
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

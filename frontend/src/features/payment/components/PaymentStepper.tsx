@@ -28,10 +28,10 @@ interface PaymentStepperProps {
   steps: string[];
   onBack: () => void;
   onNext: () => void;
-  onSubmit: () => Promise<void>; // Changed to async
+  onSubmit: () => Promise<void>;
   onFinish: () => void;
   isNextDisabled: boolean;
-  isSubmitting: boolean; // Added loading state
+  isSubmitting: boolean;
 }
 
 const PaymentStepper: React.FC<PaymentStepperProps> = ({

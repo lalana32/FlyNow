@@ -4,23 +4,18 @@ import FlightDuration from './flightCardComponents/FlightDuration';
 import FlightInfo from './flightCardComponents/FlightInfo';
 import FlightSeatsAndBooking from './flightCardComponents/FlightSeatsAndBooking';
 import FlightTimeAndAirport from './flightCardComponents/FlightTimeAndAirport';
-import { useState } from 'react';
-import BaggageTable from './flightCardComponents/bagaggeTable/BaggageTable';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const FlightCard = (flight: Flight) => {
-  const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const toggleExpanded = () => {
-    setExpanded((prev) => !prev);
-  };
+  const adults = parseInt(searchParams.get('adults') || '1', 10);
 
-  const handlePlanSelect = (tier: string, flightData: any) => {
-    navigate('/payment', {
+  const handleBookFlight = (flightData: any) => {
+    navigate(`/payment?adults=${adults}`, {
       state: {
         flightData,
-        selectedTier: tier,
       },
     });
   };
@@ -61,17 +56,9 @@ const FlightCard = (flight: Flight) => {
 
         <Divider sx={{ my: 2 }} />
 
-        {!expanded && (
-          <FlightSeatsAndBooking
-            seatsLeft={flight.numberOfBookableSeats}
-            onBookClick={toggleExpanded}
-          />
-        )}
-        <BaggageTable
-          expanded={expanded}
-          onClose={() => setExpanded(false)}
-          flightData={flight}
-          onPlanSelect={handlePlanSelect}
+        <FlightSeatsAndBooking
+          seatsLeft={flight.numberOfBookableSeats}
+          onBookClick={() => handleBookFlight(flight)}
         />
       </CardContent>
     </Card>
