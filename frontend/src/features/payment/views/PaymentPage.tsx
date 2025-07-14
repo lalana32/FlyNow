@@ -44,11 +44,9 @@ const PaymentPage = () => {
       passportNumber: '',
       email: '',
       phone: '',
-      baggageOptions: 0,
+      baggageOptions: '0',
     }))
   );
-  console.log('flight data: ', flightData);
-  console.log('putnici: ', passengers);
 
   const handlePassengerDetailsChange = (
     index: number,
@@ -71,7 +69,13 @@ const PaymentPage = () => {
     const bookingData = {
       userId: userId,
       totalPrice: (
-        parseFloat(flightData.totalPrice) * passengerDetails.length
+        parseFloat(flightData.totalPrice) * passengerDetails.length +
+        passengerDetails.reduce((total, p) => {
+          const baggageOption = Number(p.baggageOptions);
+          if (baggageOption === 1) return total + 30;
+          if (baggageOption === 2) return total + 60;
+          return total;
+        }, 0)
       ).toFixed(2),
       currency: flightData.currency,
       bookingItems: passengerDetails.map((p) => ({
@@ -79,7 +83,7 @@ const PaymentPage = () => {
         passengerLastName: p.lastName,
         passengerPassportNumber: p.passportNumber,
         seatNumber: '12',
-        baggageOptions: p.baggageOptions,
+        baggageOptions: Number(p.baggageOptions),
       })),
       flightSegments: [
         {
@@ -97,7 +101,7 @@ const PaymentPage = () => {
     setIsSubmitting(true);
 
     try {
-      console.log(bookingData);
+      console.log('Da vidimo podatke: ', bookingData);
       const response = await fetch('http://localhost:5004/api/Booking', {
         method: 'POST',
         headers: {

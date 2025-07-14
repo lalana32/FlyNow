@@ -10,7 +10,7 @@ interface PassengerDetailsFormProps {
     passportNumber: string;
     email: string;
     phone: string;
-    baggageOptions: string;
+    baggageOptions: number;
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
