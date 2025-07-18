@@ -207,7 +207,32 @@ namespace AuthServiceApplication.Services
 
         }
 
-        
+        public async Task<ServiceResponse<AuthResponse>> GetUserByIdAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return new ServiceResponse<AuthResponse>
+                {
+                    Success = false,
+                    Message = "User not found."
+                };
+            }
+
+            var authResponse = new AuthResponse
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,  
+                LastName = user.LastName,
+            };
+
+            return new ServiceResponse<AuthResponse>
+            {
+                Data = authResponse,
+                Success = true
+            };
+        }
 
     }
 }

@@ -38,7 +38,8 @@ namespace EmailServiceApi.Controllers
         [HttpPost("send-ticket")]
         public async Task<IActionResult> SendTicket([FromBody] TicketRequest request)
         {
-            await _emailService.SendTicketEmailAsync(request.Email, request.PassengerName, request.FlightNumber, request.BookingCode);
+            await _emailService.SendTicketEmailAsync(request.Email, request.PassengerFirstName, request.PassengerLastName
+             );
             return Ok("Avionska karta poslata na email.");
         }
     }

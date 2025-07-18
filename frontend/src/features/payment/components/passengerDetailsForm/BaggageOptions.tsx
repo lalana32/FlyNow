@@ -15,8 +15,7 @@ interface BaggageOptionsProps {
 
 const BaggageOptions: React.FC<BaggageOptionsProps> = ({ value, onChange }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Convert to number immediately
-    onChange(Number(event.target.value));
+    onChange(event);
   };
   return (
     <Grid size={{ xs: 12 }}>

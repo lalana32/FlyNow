@@ -7,6 +7,6 @@ namespace EmailServiceApplication.Interfaces
 {
     public interface IPdfGenerator
     {
-        byte[] GenerateTicketPdf(string passengerName, string flightNumber, string bookingCode);
+        byte[] GenerateTicketPdf(string passengerName);
     }
 }

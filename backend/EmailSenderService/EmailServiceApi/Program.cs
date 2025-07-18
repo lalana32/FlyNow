@@ -16,7 +16,7 @@ builder.Services.AddSingleton<IPdfGenerator, PdfGenerator>();
 builder.Services.AddSingleton<RabbitMqService>();
 
 
-// builder.Services.AddHostedService<RabbitMqListenerService>();
+builder.Services.AddHostedService<RabbitMqListenerService>();
 
 
 builder.Services.AddControllers();

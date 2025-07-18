@@ -11,6 +11,7 @@ namespace AuthServiceApplication.Interfaces
         Task<ServiceResponse<AuthResponse>> LoginAsync(string username, string password);
         Task<ServiceResponse<string>> RegisterAsync(string firstName, string lastName, string email, string username, string password);
         Task<ServiceResponse<string>> ConfirmEmailAsync(string userId, string token);
+        Task<ServiceResponse<AuthResponse>> GetUserByIdAsync(string userId);
         Task<ServiceResponse<List<AuthResponse>>> GetAllUsersAsync();
         Task<ServiceResponse<string>> DeleteUserByIdAsync(string userId);
     }

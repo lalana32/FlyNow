@@ -18,7 +18,10 @@ namespace EmailServiceInfrastructure.Messaging
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _rabbitMqService.RecieveMessageAsync("email_queue"); 
+            var task1 = _rabbitMqService.RecieveMessageAsync("email_queue");
+            var task2 = _rabbitMqService.ReceiveTicketMessageAsync("ticket_email_queue");
+            
+            await Task.WhenAll(task1, task2);
         }
     }
 }

@@ -97,6 +97,19 @@ namespace AuthServiceApi.Controllers
             return Ok(response);
         }
 
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<ServiceResponse<AuthResponse>>> GetUserById(string id)
+        {
+            var response = await _authService.GetUserByIdAsync(id);
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            return Ok(response);
+
+        }
+
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {

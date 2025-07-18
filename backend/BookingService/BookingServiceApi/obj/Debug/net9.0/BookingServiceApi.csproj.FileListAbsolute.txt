@@ -63,3 +63,5 @@ C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceApi\obj\De
 C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceApi\obj\Debug\net9.0\BookingServiceApi.pdb
 C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceApi\obj\Debug\net9.0\BookingServiceApi.genruntimeconfig.cache
 C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceApi\obj\Debug\net9.0\ref\BookingServiceApi.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceApi\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\BookingService\BookingServiceApi\bin\Debug\net9.0\RabbitMQ.Client.dll

@@ -69,23 +69,6 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 
-// using (var scope = app.Services.CreateScope())
-// {
-//     var services = scope.ServiceProvider;
-//     var context = services.GetRequiredService<ApplicationDbContext>();
-//     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-//     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-//     try
-//     {
-//         context.Database.Migrate();
-//         await DbSeeder.SeedUsers(userManager, roleManager);
-//     }
-//     catch (Exception ex)
-//     {
-//         Console.WriteLine($"Error while migration/seeding: {ex.Message}");
-//     }
-// }
 
 
 if (app.Environment.IsDevelopment())

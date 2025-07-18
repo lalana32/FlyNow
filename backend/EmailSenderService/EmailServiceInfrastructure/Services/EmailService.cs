@@ -46,7 +46,8 @@ namespace EmailServiceInfrastructure.Services
             await client.DisconnectAsync(true);
         }
 
-        public async Task SendTicketEmailAsync(string toEmail, string passengerName, string flightNumber, string bookingCode)
+        public async Task SendTicketEmailAsync(string toEmail, string passengerFirstName, string passengerLastName
+         )
         {
             var smtpServer = _config["EmailSettings:SmtpServer"];
             var smtpPort = int.Parse(_config["EmailSettings:SmtpPort"]);
@@ -55,7 +56,7 @@ namespace EmailServiceInfrastructure.Services
             var fromEmail = _config["EmailSettings:FromEmail"];
             var fromName = _config["EmailSettings:FromName"];
 
-            var pdfBytes = _pdfGenerator.GenerateTicketPdf(passengerName, flightNumber, bookingCode);
+            var pdfBytes = _pdfGenerator.GenerateTicketPdf(passengerFirstName);
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(fromName, fromEmail));
@@ -65,9 +66,9 @@ namespace EmailServiceInfrastructure.Services
             var bodyBuilder = new BodyBuilder
             {
                 HtmlBody = $@"
-                    <p>Poštovani {passengerName},</p>
-                    <p>U prilogu se nalazi vaša avionska karta za let {flightNumber}.</p>
-                    <p>Šifra rezervacije: <strong>{bookingCode}</strong></p>
+                    <p>Poštovani {passengerFirstName},</p>
+                    <p>U prilogu se nalazi vaša avionska karta za let ta j i taj.</p>
+                    <p>Šifra rezervacije: <strong>random kod</strong></p>
                     <p>Hvala što letite sa nama!</p>"
             };
 

@@ -8,9 +8,8 @@ namespace EmailServiceApplication.DTOs
     public class TicketRequest
 {
     public string Email { get; set; }
-    public string PassengerName { get; set; }
-    public string FlightNumber { get; set; }
-    public string BookingCode { get; set; }
+    public string PassengerFirstName { get; set; }
+    public string PassengerLastName { get; set; }
 }
 
 }

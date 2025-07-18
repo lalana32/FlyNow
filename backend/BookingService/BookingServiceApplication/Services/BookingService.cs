@@ -9,6 +9,7 @@ using AutoMapper;
 using BookingServiceDomain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using BookingServiceInfrastructure.Messaging;
 
 
 namespace BookingServiceApplication.Services
@@ -18,12 +19,19 @@ namespace BookingServiceApplication.Services
         private readonly BookingDbContext _context;
         private readonly IMapper _mapper;
         private readonly IFlightLookupService _flightLookupService;
+        private readonly IRabbitMqService _rabbitMqService;
+        private readonly HttpClient _httpClient;
+        private readonly IUserLookupService _userLookupService;
 
-        public BookingService(BookingDbContext context, IMapper mapper, IFlightLookupService flightLookupService)
+        public BookingService(BookingDbContext context, IMapper mapper, IFlightLookupService flightLookupService,
+        IRabbitMqService rabbitMqService, HttpClient httpClient, IUserLookupService userLookupService)
         {
             _context = context;
             _mapper = mapper;
             _flightLookupService = flightLookupService;
+            _rabbitMqService = rabbitMqService;
+            _httpClient = httpClient;
+            _userLookupService = userLookupService;
         }
 
         public async Task<BookingDto> CreateBookingAsync(CreateBookingDto createBookingDto)
@@ -78,6 +86,23 @@ namespace BookingServiceApplication.Services
             await _context.SaveChangesAsync();
 
             var bookingDto = _mapper.Map<BookingDto>(booking);
+
+            var user = await _userLookupService.GetUserByIdAsync(createBookingDto.UserId);
+            if (user != null)
+            {
+                Console.WriteLine(user.Email);
+
+                await _rabbitMqService.SendMessageAsync(
+                    queueName: "ticket_email_queue",
+                    email: user.Email,
+                    passengerFirstName: user.FirstName,
+                    passengerLastName: user.LastName
+                );
+            }
+            else
+            {
+                Console.WriteLine($"User with id {createBookingDto.UserId} not found, email not sent.");
+            }
 
             return bookingDto;
         }

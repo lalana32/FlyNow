@@ -14,11 +14,11 @@ namespace EmailServiceInfrastructure.Services
 {
     public class PdfGenerator : IPdfGenerator
     {
-        public byte[] GenerateTicketPdf(string passengerName, string flightNumber, string bookingCode)
+        public byte[] GenerateTicketPdf(string passengerName)
         {
             byte[] qrBytes;
             using (var qrGenerator = new QRCodeGenerator())
-            using (var qrData = qrGenerator.CreateQrCode(bookingCode, QRCodeGenerator.ECCLevel.Q))
+            using (var qrData = qrGenerator.CreateQrCode("123", QRCodeGenerator.ECCLevel.Q))
             using (var qrCode = new PngByteQRCode(qrData))
             {
                 qrBytes = qrCode.GetGraphic(20);
@@ -58,13 +58,13 @@ namespace EmailServiceInfrastructure.Services
                             grid.Item().Column(c =>
                             {
                                 c.Item().Text("FLIGHT").FontSize(10).FontColor(Colors.Grey.Darken2);
-                                c.Item().Text(flightNumber).FontSize(14).Bold();
+                                c.Item().Text("123").FontSize(14).Bold();
                             });
 
                             grid.Item().Column(c =>
                             {
                                 c.Item().Text("BOOKING REF").FontSize(10).FontColor(Colors.Grey.Darken2);
-                                c.Item().Text(bookingCode).FontSize(14).Bold();
+                                c.Item().Text("123").FontSize(14).Bold();
                             });
 
                             grid.Item().Column(c =>

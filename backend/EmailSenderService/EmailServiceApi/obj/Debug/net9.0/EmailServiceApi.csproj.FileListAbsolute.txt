@@ -463,3 +463,5 @@ C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\emailserviceapi\bin\
 C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\emailserviceapi\bin\Debug\net9.0\runtimes\win-x86\native\libwinpthread-1.dll
 C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\emailserviceapi\bin\Debug\net9.0\runtimes\win-x86\native\qpdf.dll
 C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\emailserviceapi\obj\Debug\net9.0\EmailServiceApi.sourcelink.json
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApi\bin\Debug\net9.0\DotNetEnv.dll
+C:\Users\Korisnik\Desktop\FlyNow\backend\EmailSenderService\EmailServiceApi\bin\Debug\net9.0\Sprache.dll

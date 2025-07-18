@@ -90,8 +90,14 @@ services:
         Host=booking.database;Port=5432;Database=${BOOKING_DB};
         Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};
         Pooling=true;Minimum Pool Size=5;
+      RabbitMQ__Host: rabbitmq
+      RabbitMQ__Port: 5672
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     depends_on:
       booking.database:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
     command:
       [
