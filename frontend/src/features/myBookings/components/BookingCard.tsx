@@ -1,16 +1,17 @@
-import { Paper, Typography, Stack, Box, Button } from '@mui/material';
+import { Paper, Typography, Stack, Button } from '@mui/material';
 import type { BookingDto } from '../models/models';
 import FlightSegmentItem from './FlightSegmentItem';
 import BookingItem from './BookingItem';
 
 interface Props {
   booking: BookingDto;
+  onDelete?: () => void;
 }
 
-const BookingCard = ({ booking }: Props) => {
+const BookingCard = ({ booking, onDelete }: Props) => {
   return (
     <Paper
-      elevation={3}
+      elevation={1}
       sx={{
         p: 3,
         borderRadius: 3,
@@ -50,6 +51,9 @@ const BookingCard = ({ booking }: Props) => {
       </Typography>
 
       <Button
+        onClick={() => {
+          if (onDelete) onDelete();
+        }}
         variant='outlined'
         color='error'
         size='small'

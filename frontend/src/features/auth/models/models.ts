@@ -12,6 +12,8 @@ export interface LoginResponse {
 }
 
 export interface RegisterDto {
+  firstName: string;
+  lastName: string;
   email: string;
   username: string;
   password: string;

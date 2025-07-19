@@ -36,7 +36,7 @@ const FormField = <T extends FieldValues>({
           fullWidth
           margin='normal'
           {...field}
-          {...props} // value, onChange, onBlur, name dolaze ovde
+          {...props}
         />
       )}
     />

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-//PRIJE PROMJENE
 import {
   Box,
   Typography,
@@ -18,6 +17,7 @@ import PassengerDetailsForm from '../components/passengerDetailsForm/PassengerDe
 import PaymentDetailsForm from '../components/PaymentDetailsForm';
 import PaymentStepper from '../components/PaymentStepper';
 import { useAppSelector } from '../../../hooks/hooks';
+import PaymentService from '../api/paymentApi';
 
 interface PaymentDetails {
   cardNumber: string;
@@ -101,21 +101,13 @@ const PaymentPage = () => {
     setIsSubmitting(true);
 
     try {
-      console.log('Da vidimo podatke: ', bookingData);
-      const response = await fetch('http://localhost:5004/api/Booking', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify(bookingData),
-      });
+      const response = await PaymentService.addBooking(bookingData);
 
-      if (!response.ok) {
+      if (response.status !== 200 && response.status !== 201) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const result = await response.json();
+      const result = response.data;
       console.log('Booking successful:', result);
       handleNext();
     } catch (error) {
@@ -188,7 +180,7 @@ const PaymentPage = () => {
         <Button
           variant='contained'
           sx={{ mt: 2 }}
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/home')}
         >
           Back to Home
         </Button>
@@ -247,7 +239,7 @@ const PaymentPage = () => {
           <Button
             variant='contained'
             color='primary'
-            onClick={() => navigate('/my-reservations')}
+            onClick={() => navigate('/my-bookings')}
             sx={{ mr: 2 }}
           >
             Go to My Reservations

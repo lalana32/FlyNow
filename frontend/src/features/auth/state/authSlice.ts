@@ -70,8 +70,8 @@ export const registerUser = createAsyncThunk<
     const response = await register(credentials);
     return response.data.message;
   } catch (err) {
-    const error = err as AxiosError<{ message: string }>;
-
+    const error = err as AxiosError<any>;
+    console.log('Error response:', error.response?.data);
     return thunkAPI.rejectWithValue(
       error.response?.data.message || 'Registration failed'
     );

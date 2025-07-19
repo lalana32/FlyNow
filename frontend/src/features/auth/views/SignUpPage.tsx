@@ -20,7 +20,16 @@ const SignUpPage = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<RegisterDto>();
+  } = useForm<RegisterDto>({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      password: '',
+    },
+  });
+
   const dispatch = useAppDispatch();
   const [toastOpen, setToastOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -55,6 +64,26 @@ const SignUpPage = () => {
             Join us and start journey today
           </Typography>
           <FormField
+            name='firstName'
+            control={control}
+            label='First Name'
+            type='text'
+            rules={{ required: 'First name is required' }}
+            error={!!errors.firstName}
+            helperText={errors.firstName?.message}
+          />
+
+          <FormField
+            name='lastName'
+            control={control}
+            label='Last Name'
+            type='text'
+            rules={{ required: 'Last name is required' }}
+            error={!!errors.lastName}
+            helperText={errors.lastName?.message}
+          />
+
+          <FormField
             name='username'
             control={control}
             label='Username'
@@ -68,7 +97,7 @@ const SignUpPage = () => {
             control={control}
             label='Email'
             type='email'
-            rules={{ required: 'email is required' }}
+            rules={{ required: 'Email is required' }}
             error={!!errors.email}
             helperText={errors.email?.message}
           />

@@ -5,7 +5,6 @@ import Navbar from '../shared/components/NavBar';
 const AppContent = () => {
   const location = useLocation();
 
-  // Rute na kojima NE želimo Navbar
   const hideNavbarOnRoutes = ['/', '/sign-in', '/signup'];
 
   const shouldShowNavbar = !hideNavbarOnRoutes.includes(location.pathname);

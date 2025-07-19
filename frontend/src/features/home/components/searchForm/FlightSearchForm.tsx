@@ -71,7 +71,6 @@ const FlightSearchForm = ({ onSearch }: Props) => {
     }
   };
 
-  // Debounce funkcije za origin i destination
   const debouncedFetchOrigin = useMemo(
     () => debounce((value) => fetchSuggestions(value, setOriginOptions), 300),
     []
@@ -122,7 +121,6 @@ const FlightSearchForm = ({ onSearch }: Props) => {
             />
           </Grid>
 
-          {/* Ostala polja bez autocomplete */}
           <SearchField
             name='departureDate'
             control={control}
@@ -146,6 +144,7 @@ const FlightSearchForm = ({ onSearch }: Props) => {
             label='Passengers'
             gridSize={{ xs: 12, sm: 6, md: 2 }}
             sx={{ width: '163px' }}
+            inputProps={{ min: 1 }}
           />
 
           <Grid size={{ xs: 12, sm: 6, md: 2 }}>
