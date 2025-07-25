@@ -25,9 +25,11 @@ namespace FlightServiceApi.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetFlights(string origin, string destination, string departureDate, int adults, string? returnDate)
+        public async Task<IActionResult> GetFlights(string origin, string destination, string departureDate,
+        int adults, string? returnDate, [FromQuery] FlightFilterDto filter)
         {
-            var (departureFlights, returnFlights) = await _flightService.GetFlightsAsync(origin, destination, departureDate, adults, returnDate);
+            var (departureFlights, returnFlights) = await _flightService.GetFlightsAsync(origin, destination,
+            departureDate, adults, returnDate, filter);
 
             var response = new FlightSearchResultDto
             {

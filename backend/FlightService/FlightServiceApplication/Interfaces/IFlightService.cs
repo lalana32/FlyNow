@@ -9,6 +9,7 @@ namespace FlightServiceApplication.Interfaces
 {
     public interface IFlightService
     {
-        Task<(List<FlightDto> DepartureFlights, List<FlightDto> ReturnFlights)> GetFlightsAsync(string origin, string destination, string departureDate, int adults, string? returnDate);
+        Task<(List<FlightDto> DepartureFlights, List<FlightDto> ReturnFlights)> GetFlightsAsync(string origin,
+        string destination, string departureDate, int adults, string? returnDate, FlightFilterDto filter);
     }
 }

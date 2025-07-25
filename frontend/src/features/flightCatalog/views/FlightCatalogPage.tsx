@@ -11,18 +11,26 @@ import {
   PaperStyles,
   TypographyStyles,
 } from '../styles/FlightCatalogPageStyles';
+import FlightFilters from '../components/FlightFilters';
 
 const FlightCatalog = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  // Parsiraj parametre iz URL-a
   const flightSearchParams = {
     origin: searchParams.get('origin') || '',
     destination: searchParams.get('destination') || '',
     departureDate: searchParams.get('departureDate') || '',
     returnDate: searchParams.get('returnDate') || '',
     adults: parseInt(searchParams.get('adults') || '1'),
+    maxPrice: searchParams.get('maxPrice') || '',
+    maxDuration: searchParams.get('maxDuration') || '',
+    directOnly: searchParams.get('directOnly') === 'true',
+    sortBy: searchParams.get('sortBy') || '',
+    descending: searchParams.get('descending') === 'true',
   };
 
+  // React Query fetchuje letove na osnovu parametara iz URL-a
   const {
     data: flights,
     isLoading,
@@ -35,10 +43,29 @@ const FlightCatalog = () => {
       !!flightSearchParams.origin &&
       !!flightSearchParams.destination &&
       !!flightSearchParams.departureDate,
-
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
+
+  // Funkcija koju prosleđujemo FlightFilters komponenti
+  const handleApplyFilters = (filters: Record<string, any>) => {
+    const params = new URLSearchParams(searchParams);
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value === '' || value === undefined || value === null) {
+        params.delete(key);
+      } else {
+        // Konvertuj boolean u string
+        if (typeof value === 'boolean') {
+          value = value ? 'true' : 'false';
+        }
+
+        params.set(key, value.toString());
+      }
+    });
+
+    setSearchParams(params);
+  };
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -65,6 +92,9 @@ const FlightCatalog = () => {
         <Typography variant='h3' sx={{ ...TypographyStyles }}>
           Available Flights
         </Typography>
+
+        {/* Prosledjujemo funkciju za primenu filtera */}
+        <FlightFilters onApply={handleApplyFilters} />
 
         <FlightSection
           title='Departure Flights'
