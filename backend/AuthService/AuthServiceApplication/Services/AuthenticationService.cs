@@ -225,6 +225,7 @@ namespace AuthServiceApplication.Services
                 Email = user.Email,
                 FirstName = user.FirstName,  
                 LastName = user.LastName,
+                Username = user.UserName
             };
 
             return new ServiceResponse<AuthResponse>

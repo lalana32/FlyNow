@@ -18,3 +18,11 @@ export interface FlightSearchResponse {
   departureFlights: Flight[];
   returnFlights: Flight[];
 }
+
+export interface FlightFiltersType {
+  maxPrice?: number;
+  maxDuration?: string;
+  directOnly?: boolean;
+  sortBy?: string;
+  descending?: boolean;
+}

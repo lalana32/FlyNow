@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { searchFlights } from '../../home/api/homeApi';
-import type { FlightSearchResponse } from '../models/models';
+import type { FlightFiltersType, FlightSearchResponse } from '../models/models';
 import { Typography, Box, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../../shared/components/LoadingSpinner';
@@ -48,23 +48,24 @@ const FlightCatalog = () => {
   });
 
   // Funkcija koju prosleđujemo FlightFilters komponenti
-  const handleApplyFilters = (filters: Record<string, any>) => {
+  const handleApplyFilters = (filters: FlightFiltersType) => {
     const params = new URLSearchParams(searchParams);
 
     Object.entries(filters).forEach(([key, value]) => {
       if (value === '' || value === undefined || value === null) {
         params.delete(key);
       } else {
-        // Konvertuj boolean u string
-        if (typeof value === 'boolean') {
-          value = value ? 'true' : 'false';
-        }
-
-        params.set(key, value.toString());
+        params.set(key, String(value));
       }
     });
 
-    setSearchParams(params);
+    // Sortiraj ključeve da URL izgleda uredno
+    const sortedParams = new URLSearchParams();
+    [...params.entries()]
+      .sort(([a], [b]) => a.localeCompare(b))
+      .forEach(([key, value]) => sortedParams.set(key, value));
+
+    setSearchParams(sortedParams, { replace: true }); // ⚡️ update bez reload
   };
 
   if (isLoading) {
@@ -93,7 +94,7 @@ const FlightCatalog = () => {
           Available Flights
         </Typography>
 
-        {/* Prosledjujemo funkciju za primenu filtera */}
+        {/* Prosleđujemo funkciju za primenu filtera */}
         <FlightFilters onApply={handleApplyFilters} />
 
         <FlightSection
