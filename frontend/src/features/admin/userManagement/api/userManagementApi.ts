@@ -9,6 +9,10 @@ export const getUserById = (id: string) => {
   return api.get(`auth-api/api/Auth/user/${id}`);
 };
 
+export const deleteUser = (id: string) => {
+  return api.delete(`auth-api/api/Auth/delete/${id}`);
+};
+
 export const getBookingByUserId = (userId: string) => {
   return api.get<BookingDto[]>(`booking-api/api/booking/user/${userId}`);
 };

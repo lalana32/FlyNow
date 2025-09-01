@@ -13,7 +13,7 @@ interface User {
   role: string;
 }
 
-const UserManagement = () => {
+const UserManagementPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -58,4 +58,4 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+export default UserManagementPage;

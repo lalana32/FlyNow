@@ -7,8 +7,8 @@ import FlightCatalogPage from '../features/flightCatalog/views/FlightCatalogPage
 import MyProfile from '../features/myProfile/views/MyProfile';
 import MyBookings from '../features/myBookings/views/MyBookings';
 import PaymentPage from '../features/payment/views/PaymentPage';
-import UserManagement from '../features/admin/userManagement/views/UserManagement';
-import UserDetails from '../features/admin/userManagement/views/UserDetails';
+import UserManagementPage from '../features/admin/userManagement/views/UserManagementPage';
+import UserDetailsPage from '../features/admin/userManagement/views/UserDetailsPage';
 
 const AppRoutes = () => {
   return (
@@ -22,8 +22,8 @@ const AppRoutes = () => {
       <Route path='/my-profile' element={<MyProfile />} />
       <Route path='/my-bookings' element={<MyBookings />} />
       <Route path='/payment' element={<PaymentPage />} />
-      <Route path='/user-management' element={<UserManagement />} />
-      <Route path='/user-management/:id' element={<UserDetails />} />
+      <Route path='/user-management' element={<UserManagementPage />} />
+      <Route path='/user-management/:id' element={<UserDetailsPage />} />
       {/* <Route path='/map' element={<SeatMap />} /> */}
     </Routes>
   );
