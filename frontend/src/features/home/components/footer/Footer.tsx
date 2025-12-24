@@ -1,4 +1,3 @@
-// Footer.tsx
 import { Box, Grid } from '@mui/material';
 import FooterLinks from './FooterLinks';
 import FooterContact from './FooterContact';

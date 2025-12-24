@@ -70,7 +70,6 @@ namespace FlightServiceApplication.Services
                     .AsQueryable();
             }
 
-            // Sortiranje
             query = filter.SortBy switch
             {
                "price" => filter.Descending

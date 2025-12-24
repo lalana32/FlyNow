@@ -2,7 +2,7 @@ services:
   yarp:
     build: ./YarpProxy
     ports:
-      - '5000:80' # localhost:5000 → port 80 u kontejneru
+      - '5000:80'
     environment:
       ASPNETCORE_URLS: http://+:80
       ASPNETCORE_ENVIRONMENT: Production

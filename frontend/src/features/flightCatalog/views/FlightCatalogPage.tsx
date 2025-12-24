@@ -56,7 +56,6 @@ const FlightCatalog = () => {
       }
     });
 
-    // Sortiraj ključeve da URL izgleda uredno
     const sortedParams = new URLSearchParams();
     [...params.entries()]
       .sort(([a], [b]) => a.localeCompare(b))

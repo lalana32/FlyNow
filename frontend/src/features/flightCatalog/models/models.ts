@@ -1,4 +1,3 @@
-// types/interfaces.ts
 export interface Flight {
   id: string;
   departureAirport: string;

@@ -1,6 +1,6 @@
 import { Grid, TextField, type SxProps, type Theme } from '@mui/material';
-import { Controller } from 'react-hook-form'; // vrednost, komponenta
-import type { Control, FieldValues, Path } from 'react-hook-form'; // samo tipovi
+import { Controller } from 'react-hook-form';
+import type { Control, FieldValues, Path } from 'react-hook-form';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 
@@ -32,7 +32,6 @@ const SearchField = <T extends FieldValues>({
         control={control}
         render={({ field: { onChange, value }, fieldState: { error } }) => {
           if (type === 'date') {
-            // DatePicker zahtijeva Dayjs ili null kao value
             const parsedValue = value ? dayjs(value) : null;
 
             return (
@@ -56,7 +55,6 @@ const SearchField = <T extends FieldValues>({
             );
           }
 
-          // Za ostale tipove, običan TextField
           return (
             <TextField
               {...{ onChange, value }}

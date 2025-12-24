@@ -95,7 +95,6 @@ const Navbar = () => {
             sx={{
               ...TypographyStyles,
               fontSize: scrolled ? '1.3rem' : '1.8rem',
-              // Svetlucavi efekat na tekstu
             }}
           >
             KiFly

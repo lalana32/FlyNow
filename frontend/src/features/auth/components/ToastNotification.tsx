@@ -23,10 +23,10 @@ export const ToastNotification = ({
       autoHideDuration={autoHideDuration}
       onClose={handleClose}
       message={message}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }} // Optional: Positions toast
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       sx={{
         '& .MuiSnackbarContent-root': {
-          justifyContent: 'center', // Centers text
+          justifyContent: 'center',
         },
       }}
     />

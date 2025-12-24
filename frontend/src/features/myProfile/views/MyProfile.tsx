@@ -43,10 +43,10 @@ const MyProfile = () => {
 
       await editUserInfo(payload, user.id);
 
-      setOpenToast(true); // prikazi uspjeh
+      setOpenToast(true);
     } catch (err) {
       console.error('Error updating user:', err);
-      setErrorToast(true); // prikazi gresku
+      setErrorToast(true);
     }
   };
 

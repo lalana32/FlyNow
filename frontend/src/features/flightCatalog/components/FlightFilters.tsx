@@ -124,7 +124,7 @@ const FlightFilters = ({ onApply }: FlightFiltersProps) => {
             value={sortOption}
             onChange={(e) => {
               setSortOption(e.target.value);
-              onApply(buildFilters({})); // odmah update
+              onApply(buildFilters({}));
             }}
             label='Sort By'
           >

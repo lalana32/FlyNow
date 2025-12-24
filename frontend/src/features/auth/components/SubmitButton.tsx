@@ -25,13 +25,8 @@ const SubmitButton = ({
       {...props}
       type='submit'
       variant='contained'
-      loading={loading} // 👈 Omogućava loading stanje
-      loadingIndicator={
-        <CircularProgress
-          size={24}
-          sx={{ color: 'white' }} // 👈 Spinner beli umesto defaultne boje
-        />
-      } // 👈 Opcionalno: prilagodite tekst
+      loading={loading}
+      loadingIndicator={<CircularProgress size={24} sx={{ color: 'white' }} />}
     >
       {text}
     </LoadingButton>

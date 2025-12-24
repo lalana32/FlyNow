@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoPersonFill } from 'react-icons/go';
 import { MdAssignment } from 'react-icons/md';
-import FormInputField from './FormInputField'; // putanja prema fajlu
+import FormInputField from './FormInputField';
 
 interface PassengerInfoFieldsProps {
   details: {

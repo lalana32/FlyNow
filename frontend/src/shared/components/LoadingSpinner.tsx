@@ -1,7 +1,6 @@
 import { CircularProgress, Box, Typography } from '@mui/material';
 import { keyframes } from '@emotion/react';
 
-// Animacija za pulsiranje teksta
 const pulse = keyframes`
   0% { opacity: 0.6; }
   50% { opacity: 1; }
