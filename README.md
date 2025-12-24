@@ -1,6 +1,6 @@
 # FlyNow — Microservices-Based Web Application (In Development)
 
-> **Status:** In active development 🚧  
+> **Status:** In active development   
 > FlyNow is a scalable, microservices-based web application for flight management and booking
 
 ---
