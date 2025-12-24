@@ -48,6 +48,8 @@ const UserDetailsPage = () => {
         userId={user.id}
         firstName={user.firstName}
         lastName={user.lastName}
+        email={''}
+        userName={''}
       />
 
       <UserInfo user={user} />

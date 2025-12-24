@@ -11,7 +11,7 @@ namespace BookingServiceApplication.DTOs
         public string PassengerName { get; set; }
         public string PassengerLastName { get; set; }
         public string PassengerPassportNumber { get; set; }
-        public string SeatNumber { get; set; }
+        public string? SeatNumber { get; set; }
         public BaggageOptions BaggageOptions { get; set; }
     }
 }

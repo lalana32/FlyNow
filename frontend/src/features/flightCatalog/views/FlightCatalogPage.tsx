@@ -16,7 +16,6 @@ import FlightFilters from '../components/FlightFilters';
 const FlightCatalog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Parsiraj parametre iz URL-a
   const flightSearchParams = {
     origin: searchParams.get('origin') || '',
     destination: searchParams.get('destination') || '',
@@ -30,7 +29,6 @@ const FlightCatalog = () => {
     descending: searchParams.get('descending') === 'true',
   };
 
-  // React Query fetchuje letove na osnovu parametara iz URL-a
   const {
     data: flights,
     isLoading,
@@ -47,7 +45,6 @@ const FlightCatalog = () => {
     refetchOnWindowFocus: false,
   });
 
-  // Funkcija koju prosleđujemo FlightFilters komponenti
   const handleApplyFilters = (filters: FlightFiltersType) => {
     const params = new URLSearchParams(searchParams);
 
@@ -65,7 +62,7 @@ const FlightCatalog = () => {
       .sort(([a], [b]) => a.localeCompare(b))
       .forEach(([key, value]) => sortedParams.set(key, value));
 
-    setSearchParams(sortedParams, { replace: true }); // ⚡️ update bez reload
+    setSearchParams(sortedParams, { replace: true });
   };
 
   if (isLoading) {
@@ -94,7 +91,6 @@ const FlightCatalog = () => {
           Available Flights
         </Typography>
 
-        {/* Prosleđujemo funkciju za primenu filtera */}
         <FlightFilters onApply={handleApplyFilters} />
 
         <FlightSection

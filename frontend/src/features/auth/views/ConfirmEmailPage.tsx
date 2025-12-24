@@ -53,7 +53,7 @@ const ConfirmEmailPage = () => {
               variant='contained'
               size='large'
               component={RouterLink}
-              to='/login'
+              to='/sign-in'
               sx={{
                 ...buttonStyles,
               }}

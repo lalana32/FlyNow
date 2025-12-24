@@ -12,25 +12,31 @@ import {
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../api/userManagementApi';
+import EditUserModal from './EditUserModal';
 
 interface UserActionsProps {
   userId: string;
   firstName: string;
   lastName: string;
+  email: string;
+  userName: string;
 }
 
-const UserActions = ({ userId, firstName, lastName }: UserActionsProps) => {
+const UserActions = ({
+  userId,
+  firstName,
+  lastName,
+  email,
+  userName,
+}: UserActionsProps) => {
   const navigate = useNavigate();
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const handleEdit = () => {
-    navigate(`/users/edit/${userId}`);
-  };
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
 
   const handleDeleteConfirm = async () => {
     try {
       await deleteUser(userId);
-      navigate('/user-management'); // nakon brisanja vrati na listu
+      navigate('/user-management');
     } catch (err) {
       console.error('Failed to delete user', err);
     }
@@ -50,17 +56,17 @@ const UserActions = ({ userId, firstName, lastName }: UserActionsProps) => {
         </Button>
 
         <Stack direction='row' spacing={1}>
-          <IconButton color='primary' onClick={handleEdit}>
+          <IconButton color='primary' onClick={() => setOpenEdit(true)}>
             <FiEdit size={20} />
           </IconButton>
-          <IconButton color='error' onClick={() => setOpenDialog(true)}>
+          <IconButton color='error' onClick={() => setOpenDelete(true)}>
             <FiTrash2 size={20} />
           </IconButton>
         </Stack>
       </Stack>
 
       {/* Confirm delete dialog */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      <Dialog open={openDelete} onClose={() => setOpenDelete(false)}>
         <DialogTitle>Delete User</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -72,7 +78,7 @@ const UserActions = ({ userId, firstName, lastName }: UserActionsProps) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} color='primary'>
+          <Button onClick={() => setOpenDelete(false)} color='primary'>
             Cancel
           </Button>
           <Button
@@ -84,6 +90,16 @@ const UserActions = ({ userId, firstName, lastName }: UserActionsProps) => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Edit user modal */}
+      <EditUserModal
+        open={openEdit}
+        onClose={() => setOpenEdit(false)}
+        user={{ id: userId, firstName, lastName, email, userName }}
+        onSuccess={() => {
+          console.log('User updated successfully!');
+        }}
+      />
     </>
   );
 };

@@ -1,10 +1,23 @@
-import { Box, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from '@mui/material';
 import type { BookingDto } from '../models/models';
 import myBookingsApi from '../api/myBookingsApi';
 import { useAppSelector } from '../../../hooks/hooks';
 import BookingCard from '../components/BookingCard';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { AxiosResponse } from 'axios';
+import LoadingSpinner from '../../../shared/components/LoadingSpinner';
+import NoBookings from '../components/NoBookings';
+import { useState } from 'react';
 
 const fetchBookings = (userId: string) =>
   myBookingsApi.getByUserId(userId).then((res) => res.data);
@@ -31,11 +44,29 @@ const MyBookings = () => {
     },
   });
 
-  const cancleDeleteBooking = (bookingId: string) => {
-    cancelBookingMutation.mutate(bookingId);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState<string | null>(
+    null
+  );
+
+  const handleOpenDialog = (bookingId: string) => {
+    setSelectedBookingId(bookingId);
+    setOpenDialog(true);
   };
 
-  if (isLoading) return <div>Loading bookings...</div>;
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setSelectedBookingId(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (selectedBookingId) {
+      cancelBookingMutation.mutate(selectedBookingId);
+    }
+    handleCloseDialog();
+  };
+
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <div>Error loading bookings: {error.message}</div>;
 
   return (
@@ -44,16 +75,38 @@ const MyBookings = () => {
         My Bookings
       </Typography>
 
-      <Grid container spacing={3}>
-        {bookings.map((booking) => (
-          <Grid size={{ xs: 12, md: 6 }} key={booking.id}>
-            <BookingCard
-              booking={booking}
-              onDelete={() => cancleDeleteBooking(booking.id)}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      {bookings.length === 0 ? (
+        <NoBookings />
+      ) : (
+        <Grid container spacing={3}>
+          {bookings.map((booking) => (
+            <Grid size={{ xs: 12, md: 6 }} key={booking.id}>
+              <BookingCard
+                booking={booking}
+                onDelete={() => handleOpenDialog(booking.id)}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      )}
+
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Cancel Booking</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to cancel this booking? This action cannot be
+            undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color='inherit'>
+            No
+          </Button>
+          <Button onClick={handleConfirmDelete} color='error' autoFocus>
+            Yes, Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

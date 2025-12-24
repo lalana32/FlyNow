@@ -9,6 +9,13 @@ export const getUserById = (id: string) => {
   return api.get(`auth-api/api/Auth/user/${id}`);
 };
 
+export const editUser = (
+  id: string,
+  data: { firstName: string; lastName: string; email: string; username: string }
+) => {
+  return api.put(`auth-api/api/Auth/edit/${id}`, data);
+};
+
 export const deleteUser = (id: string) => {
   return api.delete(`auth-api/api/Auth/delete/${id}`);
 };

@@ -34,78 +34,88 @@ namespace BookingServiceApplication.Services
             _userLookupService = userLookupService;
         }
 
-        public async Task<BookingDto> CreateBookingAsync(CreateBookingDto createBookingDto)
-        {
+       public async Task<BookingDto> CreateBookingAsync(CreateBookingDto createBookingDto)
+{
+    var booking = new Booking
+    {
+        Id = Guid.NewGuid(),
+        UserId = createBookingDto.UserId,
+        BookingDate = DateTime.UtcNow,
+        TotalPrice = createBookingDto.TotalPrice,
+        Currency = createBookingDto.Currency,
+    };
 
-            var booking = new Booking
+    foreach (var segmentDto in createBookingDto.FlightSegments)
+    {
+        var flightSegment = new FlightSegment
+        {
+            Id = Guid.NewGuid(),
+            BookingId = booking.Id,
+            FlightId = segmentDto.FlightId,
+            DepartureAirport = segmentDto.DepartureAirport,
+            DepartureTime = DateTime.SpecifyKind(segmentDto.DepartureTime, DateTimeKind.Utc),
+            ArrivalAirport = segmentDto.ArrivalAirport,
+            ArrivalTime = DateTime.SpecifyKind(segmentDto.ArrivalTime, DateTimeKind.Utc),
+            CarrierCode = segmentDto.CarrierCode,
+            FlightNumber = segmentDto.FlightNumber,
+            Booking = booking
+        };
+
+        booking.FlightSegments.Add(flightSegment);
+
+        var usedSeats = _context.BookingItems
+            .Where(bi => bi.Booking.FlightSegments.Any(fs => fs.FlightId == segmentDto.FlightId))
+            .Select(bi => bi.SeatNumber)
+            .ToHashSet();
+
+        int seatCounter = 1;
+        foreach (var itemDto in createBookingDto.BookingItems)
+        {
+            while (usedSeats.Contains(seatCounter.ToString()))
+                seatCounter++;
+
+            var bookingItem = new BookingItem
             {
                 Id = Guid.NewGuid(),
-                UserId = createBookingDto.UserId,
-                BookingDate = DateTime.UtcNow,
-                TotalPrice = createBookingDto.TotalPrice,
-                Currency = createBookingDto.Currency,
+                BookingId = booking.Id,
+                PassengerName = itemDto.PassengerName,
+                PassengerLastName = itemDto.PassengerLastName,
+                PassengerPassportNumber = itemDto.PassengerPassportNumber,
+                SeatNumber = seatCounter.ToString(),
+                BaggageOptions = itemDto.BaggageOptions,
+                Booking = booking
             };
 
-            foreach (var segmentDto in createBookingDto.FlightSegments)
-            {
-                var flightSegment = new FlightSegment
-                {
-                    Id = Guid.NewGuid(),
-                    BookingId = booking.Id,
-                    FlightId = segmentDto.FlightId,
-                    DepartureAirport = segmentDto.DepartureAirport,
-                    DepartureTime = DateTime.SpecifyKind(segmentDto.DepartureTime, DateTimeKind.Utc),
-                    ArrivalAirport = segmentDto.ArrivalAirport,
-                    ArrivalTime = DateTime.SpecifyKind(segmentDto.ArrivalTime, DateTimeKind.Utc),
-                    CarrierCode = segmentDto.CarrierCode,
-                    FlightNumber = segmentDto.FlightNumber,
-                    Booking = booking
-                };
-
-                booking.FlightSegments.Add(flightSegment);
-            }
-
-            foreach (var itemDto in createBookingDto.BookingItems)
-            {
-                var bookingItem = new BookingItem
-                {
-                    Id = Guid.NewGuid(),
-                    BookingId = booking.Id,
-                    PassengerName = itemDto.PassengerName,
-                    PassengerLastName = itemDto.PassengerLastName,
-                    PassengerPassportNumber = itemDto.PassengerPassportNumber,
-                    SeatNumber = itemDto.SeatNumber,
-                    BaggageOptions = itemDto.BaggageOptions,
-                    Booking = booking
-                };
-
-                booking.BookingItems.Add(bookingItem);
-            }
-
-            await _context.Bookings.AddAsync(booking);
-            await _context.SaveChangesAsync();
-
-            var bookingDto = _mapper.Map<BookingDto>(booking);
-
-            var user = await _userLookupService.GetUserByIdAsync(createBookingDto.UserId);
-            if (user != null)
-            {
-                Console.WriteLine(user.Email);
-
-                await _rabbitMqService.SendMessageAsync(
-                    queueName: "ticket_email_queue",
-                    email: user.Email,
-                    passengerFirstName: user.FirstName,
-                    passengerLastName: user.LastName
-                );
-            }
-            else
-            {
-                Console.WriteLine($"User with id {createBookingDto.UserId} not found, email not sent.");
-            }
-
-            return bookingDto;
+            booking.BookingItems.Add(bookingItem);
+            usedSeats.Add(seatCounter.ToString());
         }
+
+    }
+
+    await _context.Bookings.AddAsync(booking);
+    await _context.SaveChangesAsync();
+
+    var bookingDto = _mapper.Map<BookingDto>(booking);
+
+    var user = await _userLookupService.GetUserByIdAsync(createBookingDto.UserId);
+    if (user != null)
+    {
+        Console.WriteLine(user.Email);
+
+        await _rabbitMqService.SendMessageAsync(
+            queueName: "ticket_email_queue",
+            email: user.Email,
+            passengerFirstName: user.FirstName,
+            passengerLastName: user.LastName
+        );
+    }
+    else
+    {
+        Console.WriteLine($"User with id {createBookingDto.UserId} not found, email not sent.");
+    }
+
+    return bookingDto;
+}
 
 
         public async Task<IEnumerable<BookingDto>> GetBookingsByUserIdAsync(string userId)

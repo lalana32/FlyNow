@@ -110,6 +110,18 @@ namespace AuthServiceApi.Controllers
 
         }
 
+        [HttpPut("edit/{id}")]
+        public async Task<IActionResult> EditUser(string id, [FromBody] EditUserDto dto)
+        {
+            var result = await _authService.EditUserAsync(id, dto.FirstName, dto.LastName, dto.Email, dto.Username);
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
+
+
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {

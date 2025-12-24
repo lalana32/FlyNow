@@ -13,6 +13,8 @@ namespace AuthServiceApplication.Interfaces
         Task<ServiceResponse<string>> ConfirmEmailAsync(string userId, string token);
         Task<ServiceResponse<AuthResponse>> GetUserByIdAsync(string userId);
         Task<ServiceResponse<List<AuthResponse>>> GetAllUsersAsync();
+        Task<ServiceResponse<string>> EditUserAsync(string id, string firstName, string lastName, string email, string username);
         Task<ServiceResponse<string>> DeleteUserByIdAsync(string userId);
+
     }
 }

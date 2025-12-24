@@ -146,7 +146,9 @@ namespace AuthServiceApplication.Services
                 Username = user.UserName!,
                 Email = user.Email!,
                 Token = token,
-                Role = role!
+                Role = role!,
+                FirstName = user.FirstName,
+                LastName = user.LastName
             };
 
             return response;
@@ -207,6 +209,36 @@ namespace AuthServiceApplication.Services
 
         }
 
+         public async Task<ServiceResponse<string>> EditUserAsync(string id, string firstName, string lastName, string email, string username)
+        {
+            var response = new ServiceResponse<string>();
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "Korisnik nije pronađen.";
+                return response;
+            }
+
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.Email = email;
+            user.UserName = username;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                response.Success = false;
+                response.Message = string.Join(", ", result.Errors.Select(e => e.Description));
+                return response;
+            }
+
+            response.Data = user.Id;
+            response.Message = "Korisnik uspješno izmijenjen.";
+            return response;
+        }
+
         public async Task<ServiceResponse<AuthResponse>> GetUserByIdAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -223,7 +255,7 @@ namespace AuthServiceApplication.Services
             {
                 Id = user.Id,
                 Email = user.Email,
-                FirstName = user.FirstName,  
+                FirstName = user.FirstName,
                 LastName = user.LastName,
                 Username = user.UserName
             };

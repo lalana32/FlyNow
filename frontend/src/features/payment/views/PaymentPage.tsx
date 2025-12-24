@@ -82,7 +82,7 @@ const PaymentPage = () => {
         passengerName: p.firstName,
         passengerLastName: p.lastName,
         passengerPassportNumber: p.passportNumber,
-        seatNumber: '12',
+        seatNumber: '0',
         baggageOptions: Number(p.baggageOptions),
       })),
       flightSegments: [
