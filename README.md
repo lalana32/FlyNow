@@ -1,11 +1,11 @@
-# ✈️ FlyNow — Microservices-Based Web Application (In Development)
+# FlyNow — Microservices-Based Web Application (In Development)
 
 > **Status:** In active development 🚧  
 > FlyNow is a scalable, microservices-based web application for flight management and booking
 
 ---
 
-## 🔧 Technologies Used
+## Technologies Used
 
 ### Backend (C# / .NET 9 — Microservices)
 
@@ -40,7 +40,7 @@
 
 ---
 
-## 🐳 Infrastructure & Docker
+## Infrastructure & Docker
 
 The application runs fully containerized using **Docker Compose**.
 
@@ -56,9 +56,24 @@ Each service is independently deployable and communicates via REST and RabbitMQ.
 
 ---
 
-## 🚀 Getting Started (Development)
+## Deployment Status
 
-> ⚠️ **Note:** This project is still under active development. Expect rapid iteration and frequent changes.
+> Frontend and backend are currently deployed separately.
+
+At this stage, the frontend application is **not yet included in the Docker Compose setup**.
+
+This is an intentional decision to:
+- focus on **backend microservice architecture**
+- ensure **independent service orchestration**
+- simplify debugging and local development
+
+A unified Docker setup (frontend + backend + reverse proxy)  
+is planned as part of the **next development phase**.
+
+## Getting Started (Development)
+
+> **Note:** This project is still under active development. Expect rapid iteration and frequent changes.
+
 
 ### Prerequisites:
 - Docker + Docker Compose
